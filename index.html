@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<!-- Copyright (c) 2016,2020,2021 Michael E Sparks
+     All rights reserved. -->
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>
+h2 {text-align: center;}
+</style>
+<title>Cap'n Sparky's Comp Bio Ramp-up Sheet</title>
+</head>
+<body>
+<h2>Cap'n Sparky's<br/>Comp Bio Ramp-up Sheet</h2>
+<h4>About</h4>
+<p>
+I am a <a href="https://www.ars.usda.gov/people-locations/person/?person-id=46016">Computational Biologist</a>
+with the USDA-ARS whose
+<a href="https://orcid.org/0000-0001-6251-8559">research</a>
+addresses various biotic factors adversely affecting agricultural production.
+Provided here, as a voluntary outreach service and in the hopes that
+others may find it useful,
+is a subset of exercises I typically have folks work through as part
+of their onboarding into my laboratory.
+Importantly, the opinions expressed herein are my own and should in absolutely
+no way be construed as reflecting those of the U.S. Department of Agriculture.
+</p>
+
+<p>
+Although my agency is not a training institution per se,
+I nevertheless insist my supervisees take their craft seriously and strive
+to improve their skills during the time they spend working with me.
+Alumni outcomes to date include being hired directly from my group
+into a bioinformatics staff position at an Ivy institution,
+matriculating into a competitive physician training program,
+and gaining employment as a software engineer
+(multiple individuals, some at Big Five tech firms
+and others at attractive boutiques).
+Their achievements are their own, but I'd also like to believe the
+time spent in my shop wasn't overly disruptive to their trajectories, either.
+</p>
+
+<p>
+As is typical in this field, some enter into the practice of Bioinformatics
+with backgrounds skewed more towards Biology and others having emphasized
+Computer Science to a greater extent;
+in either case, my duty as mentor is to intellectually stimulate the
+apprentice so that he or she approaches scientific problems from a truly
+multidisciplinary perspective.
+(I've yet to manage any individuals who prioritized Statistics training
+in their academic preparation, but the expectations would be similar.)
+My impression is that much of the content I present below isn't part of
+undergraduate and graduate training curricula in Computational Biology
+or related fields
+(I'm largely an autodidactic programmer with arguably peculiar interests),
+so the hope is that working through these problems in earnest will complement
+whatever knowledge base was acquired during formal studies.
+In all cases, I furnish my own solutions as PDF listings or post directly on the web page,
+but do not provide source files per se: in the spirit of such publications
+as early-era <a href="https://archive.org/details/byte-magazine"><i>BYTE</i></a> magazine
+and the <a href="http://www.vintage-basic.net/games.html"><i>BASIC Computer Games</i></a>
+book, I advocate actively typing in the examples and running them for yourself.
+</p>
+
+<p>
+Also, what's up with this "Cap'n Sparky" business?
+To be honest, I'm not particularly fond of it:
+a good-humored co-worker dubbed me this long ago,
+and given the substantially worse things I've been called
+before and since (and that I happen to be reading
+James Michener's <i>Chesapeake</i> at the moment),
+I figure that'll just be my port in the storm.
+After all, nicknames choose us&mdash;we don't choose them.
+</p>
+
+<p>
+Sincerely,<br/>
+<a href="https://www.linkedin.com/in/mesparks">Michael E. Sparks</a>, 3 Jan 2021
+</p>
+
+<h4>Prerequisites</h4>
+<ol>
+<li>
+<p>
+Be familiar with a standard GNU/Linux working environment.
+None of job control, file permissions, file types, redirection,
+the edit-compile-link-execute cycle, shell scripting,
+standard *nix utilities
+(e.g., grep, sed, (g)awk, cut, paste, tee, cat, rev, tac, sort, touch,
+cp, rm, xz/gz/bzip2, wc, uniq, source, find, xargs, flex, bison),
+environmental variables and so forth should be mystifying.
+</p>
+</li>
+
+<li>
+<p>
+If not yet comfortable editing with both vi/vim and Emacs&mdash;the two principal,
+"serious" text editors for *nix programmers&mdash;please work through some tutorials
+until you are.
+vi is ordinarily installed on most
+GNU/Linux distros by default and Emacs is just an 'apt install' away.
+Tutorials for both can be readily located on the internet,
+and of course Emacs prominently advertises its own built-in tutorial,
+launched with "Ctrl-h t".
+</p>
+
+<p>
+I ordinarily use vi for editing C, C++, R, Perl, Python and Bash;
+and Emacs for Scheme (geiser), Common Lisp (slime), Prolog (prolog-mode),
+Haskell (haskell-mode) and OCaml (tuareg, merlin).
+These are just personal tastes, acquired mainly because these were the
+editors (and modes) under which I learned these respective languages.
+There's no reason your preferences must correspond to mine.
+I'm hardly the thought police or purport myself as a preeminent authority on all
+matters programming-related, but you really should have both these
+arrows in your quiver.
+</p>
+</li>
+
+<li>
+<p>
+Become a habitual user of the screen terminal multiplexer.
+Network connectivity is never 100% reliable, and the ability to
+maintain a persistent, long-term session across time and space is an
+indulgence no self-respecting Linux user should abstain from.
+(The loosely related nohup command is theoretically nice and all,
+but aside from a handful of rare sysadmin-type situations,
+I can't think of any compelling reason to use it in lieu of screen.)
+By default, screen does have the nasty habit of clobbering the
+Ctrl-a readline binding, so do consider the following modification:
+</p>
+<pre>
+$ cat &gt; ~/.screenrc &lt;&lt; EOF
+&gt; escape ^^^^
+&gt; EOF
+</pre>
+</li>
+
+<li>
+<p>
+Familiarize yourself with the GPG system (see <a href="https://www.digitalocean.com/community/tutorials/how-to-use-gpg-to-encrypt-and-sign-messages">here</a>) and multifactorial authentication using SSH key pairs (<a href="https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server">here</a>).
+</p>
+</li>
+</ol>
+
+<h3>Exercises</h3>
+<ol>
+<li>
+<p>
+In a C/C++ system, can all possible values of a character-valued variable be represented in a lossless manner using another integer-typed (i.e., short, int, long, etc.) variable?
+</p>
+
+<p>
+a) No, because alphanumeric characters compose a proper superset of integers (which are numeric).<br/>
+b) No, because the char type uses at least one byte, whereas int uses at least 32 bits.<br/>
+c) Yes, because the char type uses at least eight bits, whereas short uses at least 2 bytes.<br/>
+d) Yes, because the char type reserves at least as many bits as the int type.<br/>
+</p>
+
+<p>
+<i>Charlie</i>. Compilers will reserve at least one byte for a char, and at least two bytes for a short. Anything that can be encoded using 8 bits can also be encoded using 16 or more bits. All additional species of integer-typed variables utilize at least as many bits as a short. (Consider testing this on your system using C's sizeof() operator.)
+
+This is relevant even to basic text processing when using C, as the EOF marker cannot be stored in a char-typed variable (see Kernighan &amp; Ritchie's <a href="https://www.cprogramming.com/books/ritchie.html">book</a> for relevant discussions). Although dynamically-typed languages usually allow us to overlook such details, beware of realizing inadvertent type errors by relying too heavily on the conveniences they afford.
+</p>
+</li>
+
+<li>
+<p> 
+Is it safe to test equality of two integer-typed values?
+</p>
+
+<p>
+a) Yes, it is.<br/>
+b) This is not relevant to bioinformatics.<br/>
+c) This is no longer a concern given modern computing hardware.<br/>
+d) No, it is not.<br/>
+</p>
+
+<p>
+<i>Alpha</i>. This is safe so long as the intended values will actually fit in the space reserved by the variable type, the data representation of the two values being compared is identical (e.g., both are in two's-complement if the arguments are signed), etc.
+</p>
+</li>
+
+<li>
+<p>
+Is it safe to test equality of two values furnished using IEEE 754 format?
+</p>
+
+<p>
+a) Yes, it is&mdash;the IEEE has fixed all issues related to floating-point numbers.<br/>
+b) No, it is not.<br/>
+c) This is not relevant to bioinformatics.<br/>
+d) This is no longer a concern given modern computing hardware.<br/>
+</p>
+
+<p>
+<i>Bravo</i>. The traditional workaround is to take the difference of two floating-point values, then determine whether that "delta" exceeds some pre-defined threshold amount (often referred to as "epsilon"). Never directly test the equality of floats!
+</p>
+</li>
+ 
+<li>
+<p>
+Using either of the two predominant modern Lisp dialects, provide a few symbolic expressions demonstrating by approximately how much two floating-point values proximal to 1.0 must differ so as to be distinguishable by your machine. Try differing baseline values, and attempt to demonstrate the potential for numerical errors.
+</p>
+
+<p>
+Here's a solution using the Scheme dialect of Lisp within its REPL. (Translation to Common Lisp is straightforward, and left as an exercise.) Please notice the inconsistent behavior among baseline values of 1.0, 1.5, 2.0, etc.
+</p>
+ 
+<pre>
+$ guile
+GNU Guile 2.2.3
+Copyright (C) 1995-2017 Free Software Foundation, Inc.
+
+Guile comes with ABSOLUTELY NO WARRANTY; for details type `,show w'.
+This program is free software, and you are welcome to redistribute it
+under certain conditions; type `,show c' for details.
+
+Enter `,help' for help.
+scheme@(guile-user)&gt;
+
+(define (approximate-system-epsilon)
+  (define (approach-epsilon guess)
+    (let ((baseline 1.0) (divisor 1.001))
+      (cond ((= baseline (+ baseline (/ guess divisor)))
+             guess)
+            (else (approach-epsilon (/ guess divisor))))))
+  (approach-epsilon 1.0))
+
+scheme@(guile-user)&gt;
+
+(approximate-system-epsilon) ; Good to know!
+$1 = 1.1104071450617987e-16
+
+scheme@(guile-user)&gt;
+
+(define within-tolerance?
+  (lambda (testval reference tolerance)
+    (not (&gt; (abs (- testval reference)) tolerance))))
+
+scheme@(guile-user)&gt;
+
+(define is-it-zero?
+  (lambda (arg tol)
+    (if (within-tolerance? arg 0.0 tol)
+        "Yes, it is."
+        "Nope, it ain't.")))
+
+scheme@(guile-user)&gt;
+
+(is-it-zero? 1E-10 (approximate-system-epsilon))
+$2 = "Nope, it ain't."
+
+scheme@(guile-user)&gt;
+
+(is-it-zero? 1E-10 1E-11)
+$3 = "Nope, it ain't."
+
+scheme@(guile-user)&gt;
+
+(is-it-zero? 1E-10 1E-9)
+$4 = "Yes, it is."
+
+scheme@(guile-user)&gt;
+
+(= 1.5 (+ 1.5 (approximate-system-epsilon))) ; behaves as we'd expect
+$5 = #f
+
+scheme@(guile-user)&gt;
+
+(= 1.5 (+ 1.5 (/ (approximate-system-epsilon) 1.001)))
+$6 = #t
+
+scheme@(guile-user)&gt;
+
+(= 2.0 (+ 2.0 (approximate-system-epsilon))) ; Well, hot rats! This one slips our guard...
+$7 = #t
+
+scheme@(guile-user)&gt;
+
+(= 2.0 (+ 2.0 (/ (approximate-system-epsilon) 1.001))) ; ...so logically, this wouldn't work either
+$8 = #t
+
+scheme@(guile-user)&gt;
+
+(= 2.0 (+ 2.0 (* 2 (approximate-system-epsilon)))) ; This does work, however.
+$9 = #f
+</pre>
+</li>
+ 
+<li>
+<p>
+Would a log transformation of our floating-point numerical data traverse the issue addressed by the immediately preceding problem? Why would we ever work in log space, anyhow?
+</p>
+
+<p>
+A log transformation of floating-point numerical data would NOT ordinarily traverse the issue of inconsistently distinguishing numerical amounts: log-transformed values are themselves numerical, and in any case are a function of the original amounts...which were themselves numerical values that the machine may not have been physically capable of differentiating. For instance, we can see this by repurposing the definition of approximate-system-epsilon developed above:
+</p>
+
+<pre>
+scheme@(guile-user)&gt;
+
+(define (ourtest x)
+  (= (log x)
+     (log (+ x (approximate-system-epsilon)))))
+
+scheme@(guile-user)&gt;
+
+(map ourtest '(0.5 1.0 1.5 2.0 2.5))
+$1 = (#f #f #f #t #t)
+
+scheme@(guile-user)&gt;
+
+(quit)
+</pre>
+ 
+<p>
+Log-transformations are useful for preventing buffer under- and overflows vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for instance (sums of logs are taken instead).
+</p>
+</li>
+ 
+<li>
+<p>
+Implement "FizzBuzz" with a single line of Perl code. Implement the same in Python, relaxing the one-line constraint. Which do you prefer, and why?
+</p>
+
+<p>
+<ul>
+<li>
+Perl solution, issued from the shell:
+
+<pre>
+$ perl -e 'for $i (1..100) {print ((($i%15==0)?"FizzBuzz":($i%3==0)?"Fizz":($i%5==0)?"Buzz":$i),"\n");}'
+</pre>
+</li>
+
+<li>
+Python solution, issued from its REPL:
+
+<pre>
+$ python
+Python 2.7.17 (default, Sep 30 2020, 13:38:04)
+[GCC 7.5.0] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+
+&gt;&gt;&gt; for i in xrange(1,101):
+...     if i % 15 == 0:
+...         print "FizzBuzz"
+...     elif i % 3 == 0:
+...         print "Fizz"
+...     elif i % 5 == 0:
+...         print "Buzz"
+...     else:
+...         print str(i)
+</pre>
+</li>
+</ul>
+
+<p>
+There's no right or wrong answer as to preference.
+Being something akin to earmuffs, Perl has fallen out of favor in recent years, being steadily displaced by Python (and R). Still, I prefer Perl. Its primary baked-in strength lies in text processing (which much of bioinformatics consists of), and that coupled with its being easy to learn, versatile and not super-terrible at numeric tasks (e.g., <a href="http://pdl.perl.org/">perldl/PDL</a>) may explain how it once reigned as the lingua franca of Bioinformatics.
+</p>
+
+<p>
+A problem with Perl is its simplicity is deceptive, and it's all too easy for beginners to fall prey to any number of gotchas. Some claim it's a "write-only" language, but I disagree. Some claim it encourages unstructured programming practices, and I agree up to a point. Some claim certain self-aggrandizing molecular biologists often learn just enough of it to be dangerous and then zealously pollute the software corpus with bug-ridden vanity code because they couldn't be bothered to thoroughly test their programs with something like <a href="https://metacpan.org/pod/Devel::ptkdb">ptkdb</a>. (No comment.)
+</p>
+
+<p>
+Perl lets you do pretty much what you want and usually makes reasonable guesses about your program's intent. It could be a good second language to pick up so long as used with care in the context of small- to smallish medium-sized projects.
+Various Perl manual pages are available online and are great places to start. Please study each of these in full, which do a much better job of explaining the language than I could:
+</p>
+
+<ul>
+<li><a href="https://perldoc.perl.org/perlintro">perlintro</a></li>
+<li><a href="https://perldoc.perl.org/perlretut">perlretut</a></li>
+<li><a href="https://perldoc.perl.org/perlre">perlre</a></li>
+</ul>
+
+<p>
+If you want a sense of what the Python and Perl code emitted from my fingers usually looks like, consider loading the following plain-text/ ASCII files into your Emacs session (enter "Meta-x url-handler-mode", find the files using the URLs I provide as handles, and then write a local copy):
+</p>
+
+<ul>
+<li>
+A Python <a href="http://brendelgroup.org/mespar1/gthxml/xGDBload_PgsFromgthxml.py">module</a> I wrote in 2006 that Extracts data from an XML-formatted data structure and then Transforms it into SQL statements which are Loaded into an RDBMS (all the cool kids are doing this <a href="https://improvado.io/blog/etl-process-extract-transform-load">ETL thing</a> nowadays, so it's really "dope").
+</li>
+
+<li>
+A Perl <a href="http://brendelgroup.org/mespar1/gthxml/GSQ2XML.pl">script</a> I wrote in 2003 that Extracts data from a plain text-formatted data structure and then Transforms it into a tree structure which is Loaded into an XML document (it also implements an ETL process, but is perhaps not dope because it is <a href="https://news.ycombinator.com/item?id=21180154">written in Perl</a>).
+</li>
+</ul>
+
+<li>
+<p>
+While sitting in Finance class one evening, noodling with your trusty HP-12C calculator during a water break, you suddenly realize: "This reverse Polish notation is the coolest thing I've seen since Michael Sparks' bass amp died in a 90s-era jazz band concert and he played his parts on the school's tuba instead!" RPN is plainly cool, so we should definitely implement an interpreter for it in Lisp&mdash;specifically, one that can handle the four ordinary arithmetic operators. Then, using Perl, let's create a testing framework allowing us to check the correctness of our implementation, given any arbitrary, well-formed input string, against a reference standard based on <a href="https://www.gnu.org/software/gforth/">Forth</a>, a language used widely in the embedded applications world.
+</p>
+
+<p>
+My solution to this is found <a href="solns/forthLite.pdf">here</a>. The Perl program fits on one page, and it manages the overall testing procedure much like a Bash shell script, but with markedly better text processing capabilities (among others). This is the kind of task where Perl tends to shine, and part of why it's <a href="http://www.softpanorama.org/Scripting/perl.shtml">still favored</a> by *nix sysadmins.
+</p>
+
+<p>
+The interpreter code consists of three s-exp's: a macro definition, a function definition, and a top-level invocation to tell the Guile interpreter what should actually run when it's called from the Bash shell (this is the first example I've presented where Lisp code executes outside of an interactive environment).
+</p>
+</li>
+
+<li>
+<p>
+The "Towers of Hanoi" puzzle is a classic pedagogical tool often used to introduce recursive thinking. Provide a computational solution to this puzzle utilizing exactly three spikes (source = left, destination = right and auxiliary = center) and an arbitrary number of disks. Utilize any language of your choice.
+</p>
+
+<p>
+I've prepared a <a href="solns/hanoi.pdf">solution</a> using raw IA32 assembly opcodes for Linux, which is just a step or two removed from coding on bare metal.
+For assembly, I ordinarily use AT&amp;T syntax, which is used by default with the GNU Project Debugger. If you prefer Intel syntax, no problem, but my suggestion is not to habitually switch between the two; pick a flavor and stick with it.
+Aside from debugging, occasionally adjusting gcc -S output, or tasks where we must RTFB(inary), assembly's seldom used in this shop.
+</p>
+
+<p>
+The key takeaway from my implementation is this: notice what's happening to the overall process' stack as additional recursive calls are made (i.e., as stack frames are pushed). What implications might this behavior have for large-scale, memory-intensive applications in scientific computing? Please consider how this motivated the development of properly tail-recursive compilers and/or interpreters, and how pass-by-reference parameters in C/C++ can play a vital role in efficient memory management.
+</p>
+
+<p>
+For contrast, consider the following Prolog implementation (adapted from John Fisher's excellent, online
+<a href="https://www.cpp.edu/~jrfisher/www/prolog_tutorial/2_3.html">tutorial</a>).
+Prolog is one of the most "look Ma, no hands!" languages available,
+about as distinct from assembly as can be.
+We will be exploring Prolog in greater depth below.
+</p>
+
+<pre>
+$ cat &gt; hanoi.pro &lt;&lt; EOF
+&gt; % Predicate to denote leaf nodes of solution tree
+&gt; hanoi(1,A,B,_) :-
+&gt;   !,
+&gt;   write(A),
+&gt;   write(' -&gt; '),
+&gt;   write(B),
+&gt;   nl.
+&gt; 
+&gt; % Predicate implementing internal nodes of solution
+&gt; % tree--these are expanded into leaf nodes and/or
+&gt; % additional internal nodes
+&gt; hanoi(N,L,R,C) :-
+&gt;   N &gt; 1,
+&gt;   N1 is N - 1,
+&gt;   hanoi(N1,L,C,R),
+&gt;   hanoi(1,L,R,_),
+&gt;   hanoi(N1,C,R,L).
+&gt; EOF
+
+$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- consult('hanoi.pro').
+true.
+
+?- [user].
+|: hanoi_driver(I,Ceil) :-
+|:   I =&lt; Ceil,
+|:   nl,
+|:   write(I),
+|:   write(" disks:\n"),
+|:   hanoi(I,left,right,ctr),
+|:   I1 is I + 1,
+|:   hanoi_driver(I1,Ceil).
+|: ^D% user://1 compiled 0.02 sec, 1 clauses
+true.
+
+?- hanoi_driver(1,4).
+
+1 disks:
+left -&gt; right
+
+2 disks:
+left -&gt; ctr
+left -&gt; right
+ctr -&gt; right
+
+3 disks:
+left -&gt; right
+left -&gt; ctr
+right -&gt; ctr
+left -&gt; right
+ctr -&gt; left
+ctr -&gt; right
+left -&gt; right
+
+4 disks:
+left -&gt; ctr
+left -&gt; right
+ctr -&gt; right
+left -&gt; ctr
+right -&gt; left
+right -&gt; ctr
+left -&gt; ctr
+left -&gt; right
+ctr -&gt; right
+ctr -&gt; left
+right -&gt; left
+ctr -&gt; right
+left -&gt; ctr
+left -&gt; right
+ctr -&gt; right
+false.
+
+?- halt.
+
+$ as --32 -o hanoi.o hanoi.s
+$ ld -m elf_i386 -o hanoi hanoi.o
+$ ./hanoi
+
+1 disks:
+left -&gt; right
+
+2 disks:
+left -&gt; center
+left -&gt; right
+center -&gt; right
+
+3 disks:
+left -&gt; right
+left -&gt; center
+right -&gt; center
+left -&gt; right
+center -&gt; left
+center -&gt; right
+left -&gt; right
+
+4 disks:
+left -&gt; center
+left -&gt; right
+center -&gt; right
+left -&gt; center
+right -&gt; left
+right -&gt; center
+left -&gt; center
+left -&gt; right
+center -&gt; right
+center -&gt; left
+right -&gt; left
+center -&gt; right
+left -&gt; center
+left -&gt; right
+center -&gt; right
+</pre>
+</li> 
+
+<li>
+<p>
+Launch Emacs' built-in ELIZA ("Meta-x doctor") and ponder how basic pattern matching in computational linguistics (a field from which computational biology borrows heavily; e.g., see the <a href="http://eddylab.org/cupbook.html">Durbin book</a>) could be used to implement such a system. Using a declarative approach, implement your own ELIZA.
+</p>
+
+<p>
+Woodshedding on ELIZA is a rite of passage for AI enthusiasts, and it exemplifies how pattern matching can be used to implement something akin to a switch statement from C. Declarative programming can be achieved with any of the logic, goal-based languages (in contrast to procedural, imperative variants such as Java, C/C++, Fortran, Pascal, BASIC, etc.), among which Prolog is especially popular. Indeed, Prolog finds use in such modern applications as IBM's Watson system
+(see <a href="https://www.cs.nmsu.edu/ALP/2011/03/natural-language-processing-with-prolog-in-the-ibm-watson-system/">here</a> and <a href="https://developer.ibm.com/technologies/artificial-intelligence/articles/cc-languages-artificial-intelligence/">here</a>, for example). Some background in predicate calculus/ propositional logic is helpful, but arguably not necessary to prepare useful Prolog programs. In the declarative paradigm, you tell the machine what you want rather than give it explicit directions for how to do something&mdash;to egregiously oversimplify reality, the machine automagically figures it out. Thus, this could be an attractive place to begin learning about programming for those without prior experience/ pre-conceived notions of what a program ought to look like: focus first on the logic and the correct solution to a problem, and later contemplate the minutiae of optimization.
+</p>
+
+<p>
+My implementation of ELIZA, which runs under at least SWI Prolog and GNU Prolog, is <a href="solns/ELIZA.pdf">here</a>. To simplify the presentation, I'm just using basic lists of words rather than layering on general string processing. Note how templates are used to trigger canned response patterns. It should be evident how this concept could also be ported to a molecular biology context, where for instance a swath of genomic DNA matching a "stimulus" pattern might elicit a "response" (say, flagging a transcriptional start site or TF binding motif). Anyhow, a sample session follows:
+</p>
+
+<pre>
+$ swipl -s ELIZA.pro
+Welcome to SWI-Prolog (threaded, 64 bits, version 7.6.4)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit http://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- eliza([i,am,so,sick,of,logical,thought], Response).
+Response = [why, are, you, so, sick, of, logical, thought, ?].
+
+?- eliza([i,heard,it,was,useless], Response).
+Response = [where, did, you, hear, it, was, useless, ?].
+
+?- eliza([it,does,not,matter], Response).
+Response = [please, go, on].
+
+?- eliza([i,feel,so,tired,of,answering,your,vapid,questions], Response).
+Response = [do, you, often, feel, that, way, ?].
+
+?- eliza([all,the,time,pal], Response).
+Response = [please, go, on].
+
+?- eliza([why], Response).
+Response = [because, i, am, concerned, for, you, !].
+
+?- eliza([where,are,the,answers,to,life], Response).
+Response = [the, answers, to, life, are, on, aisle, 13, '.'].
+
+?- eliza([i,truly,despise,you], Response).
+Response = [why, do, you, truly, despise, me, ?].
+
+?- eliza([i,saw,the,definition,of,hebetudinous], Response).
+Response = [when, did, you, see, the, definition, of, hebetudinous, ?].
+
+?- eliza([just,now], Response).
+Response = [please, go, on].
+
+?- eliza([bye], Response).
+Response = [goodbye, and, have, a, nice, day, '.'].
+
+?- halt.
+</pre>
+
+<p>
+To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, and red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty are the basis for the famous "You are likely to be eaten by a GRUE" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>. (?)
+</p>
+
+<p>
+A few additional remarks concerning the potential for using Prolog as a first language, particularly relevant to interns who may not yet have a language under their belt: Prolog forces you to think about accurately specifying the problem you want to solve rather than have you get bogged down in syntactical details. Similar to Lisp, Prolog's syntactical structure is quite minimal. When the target language is something like C++ or Java, it's very easy for beginners to sit at a machine, start drafting code and suddenly be imbued with the sensation of productivity. Oftentimes, that sensation is illusory, however, as they are spending much effort implementing an incorrect solution to their problem. The flawed reasoning is eventually realized, and suddenly the would-be programmer gets frustrated after realizing so much hard work was in vain. This happens on a few occasions, and the would-be programmer (whose skills might have been used, say, to cure the common cold) then sadly throws in the towel. Prolog may make this scenario less likely. For challenging problems, I'll often first code up a prototype solution in something like Lisp or Prolog just to make sure my thinking is correct, and only then move to implementing in another language (if it's truly necessary over efficiency concerns).
+</p>
+
+<p>
+A second strength is that Prolog's arguably optimized for non-numeric, symbolic computing. As folks who were naturally inclined to study Biology, let's be honest: this is the way in which we tend to internalize our world and reason about it. Admittedly, I don't ordinarily have an internal dialogue of formal logic rolling in my head, but I also certainly don't perceive the world using the sort of linear algebra-based stochastic models underpinning the current darling of AI, the connectionist-based "deep learning" subfield (see <a href="https://www.deeplearningbook.org/">here</a>). I'm a fan of DL/ML&mdash;and in fact I completed a <a href="https://doi.org/10.31274/rtd-180813-16829">doctoral thesis</a> far more quantitative in nature than qualitative&mdash;but I'm not keen to outright disregard logic programming and the utility of <a href="https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence">GOFAI</a>. (A <a href="https://lib.dr.iastate.edu/cs_techreports/78/">technical report</a> by Vasant Honavar, whose excellent AI and ML courses I was fortunate enough to take as a graduate student, explores this symbolic-numeric duality in detail.)
+</p>
+
+<p>
+Prolog's not without warts, though, among which is an atrocious native I/O system requiring extra-logical predicates for all but the simplest of programs, its debugging tools really aren't much fun to work with and it's often easy to smash the stack without a good grasp of backtracking and depth-first search.
+</p>
+
+<p>
+I'm not familiar with many Prolog books, but Ivan Bratko's <a href="https://www.pearson.ch/HigherEducation/Addison-Wesley/EAN/9780321417466/Prolog-Programming-for-Artificial-Intelligence"><i>Prolog Programming for Artificial Intelligence</i></a>&mdash;given a glowing review by none other than the late, great Patrick Winston&mdash;undeniably inspired a few exercises I present below, and Sterling and Shapiro's <a href="https://mitpress.mit.edu/books/art-prolog-second-edition"><i>The Art of Prolog</i></a> was also a joy to read. Peter Norvig's <a href="https://github.com/norvig/paip-lisp"><i>Paradigms of Artificial Intelligence Programming</i></a> covers Prolog-inspired logic programming in Common Lisp and was my first exposure to the topic. Though not Prolog, I'd be remiss to omit mention of Sec. 4.4 of Abelson and Sussman's <a href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html"><i>Structure and Interpretation of Computer Programs</i></a>. As noted above, John Fisher's
+<a href="https://www.cpp.edu/~jrfisher/www/prolog_tutorial/contents.html">tutorial</a> is
+very well done and perusing <a href="https://www.swi-prolog.org/">SWI Prolog</a>'s online
+documentation and tutorials is also recommended.
+</p>
+</li>
+
+<li>
+<p>
+Use Excel VBA to post-process the ELIZA dialogue shown above, converting lists of atoms into sentences.
+
+<p>
+Excel is a tool that many biologists are comfortable with and spreadsheets are often used as a common currency of information exchange with bioinformaticians. Having been among the last cohorts of American undergraduates whose math texts often included examples and exercises in BASIC, I'm not altogether averse to using something like VBA now and again to support a project. Few Office users are aware of it, and probably fewer actually ever use it, but a Turing-complete programming environment indeed lurks beneath every spreadsheet (at least on Windows; AFAIK, Office for Mac doesn't include a VBA interpreter). Open a blank workbook, hit Alt + F11 to enter the VBA IDE, and <i>poke</i> around a <i>bit</i> (no pun intended: "POKE" and "PEEK" are memory access commands from BASIC, and 8 bits = 1 byte).
+</p>
+
+<p>
+<a href="solns/renderELIZAdialogue.VBA.xlsm">My solution</a> implements something reminiscent of the WOPR from the 80's movie, <i>WarGames</i>: a speech synthesizer. (This may be as close to David Lightman-level cool as I'll ever get!) I've used Office 2016 on Windows 10 to prepare the XLSM file, in which I've implemented a public-facing macro called "dialogueWithELIZA()". I've bound this macro to Ctrl + Shift + Y, although from the workbook you can also run it from View &rarr; Macros &rarr; View Macros &rarr; Run. Click on Options in the View Macros pop-up box to see some remarks I've added about it. Yet another way to run this macro is to hit Alt + F11, point the cursor anywhere in the body of the subroutine's definition, and then press F5. Turn your computer speakers on and have a listen. It will prompt you if you'd like to hear the session again. Lastly, it only reformats the data in column A in the case it detects Prolog markup, so it's fine to run it, save, and re-run later.
+</p>
+</li>
+
+<li>
+<p>
+Embedded languages are those that provide the flexibility of scripting within the context of a monolithic, compiled program. For example, modern video game engines are ordinarily implemented in C++, and these often embed an interpreter for some scripting language, usually being Lua&mdash;the game engine handles the "physics," human interfaces and so forth, and the specifics of the game itself (potentially including modifications by end users) are coded up using scripts. Scripting languages are generally much more accessible to non-programmers than are the compiled languages...which in turn are generally much more accessible to most programmers than is "coding on metal" in assembly.
+</p>
+
+<p>
+The GNU Guile implementation of Scheme can be embedded in a C program. Using Scheme, implement a method for identifying prime numbers (see <a href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/sicp/book/node20.html">here</a> for a neat trick) and&mdash;in lieu of boring old Fibonacci numbers&mdash;a generator for John Conway's "<a href="https://mathworld.wolfram.com/LookandSaySequence.html">Say It</a>" sequence (yes, this is the same Conway of "Life" fame, a staple in computing culture: see <a href="https://www.nytimes.com/2020/12/28/science/math-conway-game-of-life.html">here</a>, for instance.) Prepare a short C program to prompt a user for which among these Scheme-implemented "games" they would like to play, invoke it, and return control to the operating system.
+</p>
+
+<p>
+My own solution is available <a href="solns/callerSoftwareListing.pdf">here</a>, and a sample session with it follows:
+</p>
+
+<pre>
+$ gcc -c `pkg-config --cflags guile-2.2` caller.c
+$ gcc -o caller caller.o `pkg-config --libs guile-2.2`
+$ # note: we've only compiled the host program, not the scripts!
+$ ./caller 8
+
+Please select a game to play:
+    (0) *quit playing these games*
+    (1) Conway's "Say It!" Sequence
+    (2) Prime Finder
+    (3) Countdown
+
+1
+
+1
+11
+21
+1211
+111221
+312211
+13112221
+1113213211
+
+Please select a game to play:
+    (0) *quit playing these games*
+    (1) Conway's "Say It!" Sequence
+    (2) Prime Finder
+    (3) Countdown
+
+2
+
+Ceiling on primes? 25
+2
+3
+5
+7
+11
+13
+17
+19
+23
+
+Please select a game to play:
+    (0) *quit playing these games*
+    (1) Conway's "Say It!" Sequence
+    (2) Prime Finder
+    (3) Countdown
+
+3
+
+8
+7
+6
+5
+4
+3
+2
+1
+Blastoff!
+
+Please select a game to play:
+    (0) *quit playing these games*
+    (1) Conway's "Say It!" Sequence
+    (2) Prime Finder
+    (3) Countdown
+
+4
+
+I did not recognize your selection.
+
+Please select a game to play:
+    (0) *quit playing these games*
+    (1) Conway's "Say It!" Sequence
+    (2) Prime Finder
+    (3) Countdown
+
+-33
+
+I did not recognize your selection.
+
+Please select a game to play:
+    (0) *quit playing these games*
+    (1) Conway's "Say It!" Sequence
+    (2) Prime Finder
+    (3) Countdown
+
+0
+
+$ echo $?
+0
+</pre>
+</li>
+
+<li>
+<p>
+Implement a Prolog program to sum the individual digits composing a positive-valued integer, as well as for sorting those digits in average time O(n log n).
+</p>
+
+<p>
+This is an exercise in converting between data types in Prolog, and should have helped to familiarize you with the integer, string and character types, as well as remind you of Tony Hoare's quicksort algorithm. My sample solution is <a href="solns/sumDigits.pdf">here</a>.
+</p>
+</li>
+
+<li>
+<p>
+Prolog has lists (which cannot be indexed), though it lacks arrays (i.e., random access data structures) in the ordinary sense. Show how to roll your own.
+</p>
+
+<p>
+In various contexts, one-dimensional arrays that can be indexed, similar to the square-bracket type you'll find in languages like C and C++, can considerably improve the efficiency of our Prolog programs. So, this is handy to know about. (Recall that C's square-bracket syntax is just sugar for a pointer manipulation/ dereferencing operation&mdash;that is, arr[i] is a simpler way to express *(arr + i). The square brackets are merely a convenience.) <a href="solns/oneDimArr.pdf">Here</a> is a means to simulate arrays using arg and the functor named, appropriately enough, 'functor'.
+</p>
+</li>
+
+<li>
+<p>
+Implement the binary search tree, a fundamental data structure, in Prolog. Biologists are already familiar with phylogenetic trees, so these won't be much of a conceptual leap if you've not previously seen them. In Computer Science, they are useful in that they allow for quicker lookups (taking on the order of log(N) time, provided the tree is well-balanced) than would an ordinary one-dimensional list (requiring time linear in N). In particular, binary search trees are prominent in matters of database design. (Incidentally, there's also a data query language called Datalog that "nerfs" Prolog down to a safe subset for use in production databases, inhabiting the database languages world alongside SQL, XML &amp; XQuery, RDF &amp; OWL, etc.)
+</p>
+
+<p>
+In my <a href="solns/binSearchTree.pdf">solution</a>, I've written a bare-bones binary search tree library and have provided a few sample invocations in which I create a small database, update it a few times, display it, expand nodes, query it, etc. I've left out such techniques as red-black marking for tree balancing, and assert/ retract statements, which could be used for rolling your own database management system.
+</p>
+
+<p>
+Also, the "node expansion" concept might need some clarification. Briefly, Prolog will allow you to bind a formula to a variable without simplifying it down to a resultant value unless you expressly request otherwise with the 'is' directive. There are plenty of contexts in which carrying this type of disaggregated structure around would be useful. In this <a href="solns/forCheck.pdf">example</a>, I've sketched out some procedures for evaluating compound algebraic expressions in Prolog. The precedence of mathematical operators follows the ordinary sense.
+</p>
+</li>
+
+<li>
+<p>
+The ability to readily solve things such as a Sudoku or crossword puzzle in Prolog is great if we're interested in coming up with a "one and done" solution to something...computing a "painting," if you will. Sometimes, however, we need to compute an executable plan to get from point A to point B (e.g., determining steps for a chemical synthesis procedure). Think of this as preparing an "animation."
+</p>
+
+<p>
+This generally reduces to finding a path between nodes in a graph representing the search space of potential solutions to the problem. Graphs can generally be represented as trees, and two common tree searching methods include depth-first search (DFS) and breadth-first search (BFS). Briefly, the former suffer from potentially getting trapped on an infinitely long path and offer no guarantee on the optimality (i.e., number of steps, assuming constant step costs) of at least the initial solutions identified, while the latter suffer from high memory requirements.
+</p>
+
+<p>
+In this <a href="solns/letterSorting.pdf">example</a>, I've demonstrated how to use a hybrid approach, the "DFS with iterative deepening" method, that retains the strengths of each while mitigating their respective weaknesses. The task is to start with three randomly configured stacks (as opposed to queues or random-access structures) and to place specific elements in a specific order on a specific stack&mdash;to wit, letters a-e are placed in sorted order on the first stack.
+</p>
+
+<p>
+DFSid is nevertheless a naive search method (recall the naive C++ solution to N-Queens shared earlier) that is fully exposed to the exponential complexity (i.e., branching factor) of the problem under consideration. It's often a very good starting point from which to begin incorporating particular features of your problem in order to improve the search performance (consider the improved C++ N-Queens solution, which takes board symmetry into account, for example).
+</p>
+</li>
+
+<li>
+<p>
+Reusing the DFSid planning/ searching machinery developed above for solving
+the letter-sorting-among-stacks problem, implement a declarative solution to
+the farmer's wolf-grain-chicken problem:
+All four characters are initially on
+<a href="https://en.wikipedia.org/wiki/Henry_A._Wallace_Beltsville_Agricultural_Research_Center">BARC</a>-West.
+The farmer can carry at most one object across Route 1 to BARC-East at a time,
+but can't leave the grain &amp; chicken, or wolf &amp; chicken, unsupervised.
+The goal is to safely get everything over to BARC-East. Can she?
+If so, programmatically generate a plan using Prolog...and then
+port your implementation over to Scheme, to enable a side-by-side comparison.
+In particular, do not "cheat" by calling out to a logic library
+(e.g., <a href="http://minikanren.org/">miniKanren</a>);
+the solution should be in "pure" Scheme.
+</p>
+
+<p>My Prolog and Lisp solutions are <a href="solns/farmer.pro.pdf">here</a>
+and <a href="solns/farmer.scm.pdf">here</a>, respectively.
+A key takeaway is that backtracking in conjunction with the
+setof, bagof and findall metapredicates is an especially luxurious aspect
+of Prolog.
+For the Scheme code, I've used the define-syntax construct to create a new special form (as opposed to define, which creates new functions). Scheme supports a few ways to create macros such as this, which can be used to extend Lisp's syntax (allowing to create special-purpose languages, for instance) or to have code generating code at run-time (allowing programs to autonomously "morph" in response to novel encounters, for instance).
+</p>
+</li>
+
+<li>
+<p>
+<a href="solns/bloxWurld.pdf">bloxWurld</a> is a sizable Prolog coding example I've prepared for you to study, implementing six distinct search methods for plan identification. Here, we begin to consider procedural aspects of declarative programming: in a purely logical sense, all six algorithms specify the same solution, yet they differ wildly in terms of time and space performance. The takeaway is, even with a very abstract, high level language such as Prolog (and even when run on fancy modern hardware), there's no escape from contemplating the mechanisms of program execution.
+</p>
+
+<p>
+There's not terribly much more to Prolog beyond what I've presented up to this point: notable examples include various <a href="solns/CLPR.pdf">constraint logic programming</a> libraries (useful for working with unbound variables) and built-in <a href="solns/NLP.pdf">grammar parsers</a> (for finding patterns in natural language, musical compositions, weather patterns, RNA secondary structures, you name it). For our purposes of just learning how to think about formal problem solving, without being overly encumbered by numerical concepts and/or a complex syntax, those are probably best left as indulgences.
+</p>
+
+<p>
+The last couple of Prolog examples introduced some state-search concepts for plan development. Planning has been an active area of AI research for about 50 years, and not surprisingly, there's a menagerie of approaches used to tackle the problem. In the "letter sorting" program above, we looked at managing elements in three stack-type structures. These could alternatively be represented as three places on a table upon which a robot can stack lettered blocks.
+</p>
+
+<p>
+Rather than thinking of operations in terms of push/ pop actions, we can re-express them in terms of moving a block object from one supportive object (another block or a place) to another, observing the "physics" of such a realm. These become the "means" for getting from an initial state to an end state (which contains a set of goals, or "ends"). Planning in this manner is thus called "means-ends" analysis. An extension to basic means-ends analysis is to work backwards by selecting a goal from the target end state, identifying an activity that could achieve it, and then establishing a set of regressed goals based on what the state must have been to enable that activity's being performed. You in turn find an activity to satisfy one of the unmet goals from the regressed goals, generate yet another level of regressed goals, and repeat until you (hopefully!) land on the initial state.
+</p>
+
+<p>
+This means-ends analysis using goal regression can then be used within the depth-first search via iterative deepening framework we explored in the letter sorting and farmer-chicken-wolf-grain problems. It can also be used in backward- and forward-chaining, as well as bidirectional, breadth-first search. (Spoiler alert: bidirectional search outperforms the other methods.) That said, none of these brute-force approaches are particularly efficient, but they do get us to start thinking about solution spaces and the importance of incorporating domain-specific heuristics to help guide the search process.
+</p>
+
+<p>
+I've only used two types of objects&mdash;blocks and places&mdash;although it's possible to also consider pyramids, spheres, boxes, etc. Blocks World is the environment in which Terry Winograd's famous SHRDLU agent, a gem of the non-numerical, symbolic AI/ GOFAI corpus, operated. (See Dr. Winograd's SHRDLU page <a href="https://hci.stanford.edu/~winograd/shrdlu/">here</a>. Interestingly, Paul Graham mentions he <a href="http://www.paulgraham.com/college.html">cut his programming teeth</a> in part by rolling his own SHRDLU.)
+</p>
+</li>
+
+<li>
+<p>
+Implement a Prolog predicate to derive the reverse complement of a DNA sequence.
+</p>
+
+<p>
+The name alone tells what we need to do: reverse, and then complement, a sequence (the order's commutable). To simplify things a bit, let's first convert all symbols to upper case (an extension to handling mixed case is easily achieved and left as an independent exercise). Our solution is an instance of function composition (e.g., y = f{ g[ h(x) ] }), similar to using 'f . g . h' syntax in Haskell), here expressed as a conjunction of properly ordered goals:
+</p>
+
+<pre>
+$ swipl
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- [user].
+|: rev_cmp_seq(Seq,Revcmp) :-
+|:   string_upper(Seq,Seq1),
+|:   string_chars(Seq1,Seq2),
+|:   reverse(Seq2,Seq3),
+|:   maplist(complement,Seq3,Seq4),
+|:   string_chars(Revcmp,Seq4).
+|:
+|: complement('A','T') :- !.
+|: complement('C','G') :- !.
+|: complement('G','C') :- !.
+|: complement('T','A') :- !.
+|: complement(_,'N').
+|: ^D% user://1 compiled 0.02 sec, 6 clauses
+true.
+
+?- rev_cmp_seq("gATtaCaNYC",RC).
+RC = "GNNTGTAATC".
+</pre>
+
+<p>
+Is Prolog an ideal language with which to declare the logically correct solution to such a problem? My opinion is yes. Is Prolog an ideal language with which to implement a performant program that does this task? My opinion is no. I'd ordinarily use Perl for this:
+</p>
+
+<pre>
+$ echo "gATtaCaNYC" | perl -e '{$_=&lt;&gt;; chomp; $_=reverse uc($_); tr/ACGT/TGCA/; s/[^ACGT]/N/g; print "$_\n";}'
+GNNTGTAATC
+</pre>
+</li>
+
+<li>
+<p>
+Sketch out a prototype solution to the N-Queens problem in Prolog. Then using C++ and OOP design principles, implement a program to list all possible solutions to the N-Queens problem, for any plausible value of N, using a naive search strategy. Refine your draft by exploiting the domain-specific property of board symmetry, and compare the run-times of all three implementations.
+</p>
+
+<p>
+N-Queens is a standard puzzle of the constraint satisfaction type. Biology is chock full of instances from this class. For example, consider idealized promoter binding sites. These occur on the same strand as a particular transcriptional unit. What is more, they occur upstream from it, within a preferred range of distances from a transcriptional start site, and they exhibit a short sequence motif of a specified length that ought to bear some degree of similarity to a known set of reference binding site motifs (bootstrapped experimentally using, for instance, SELEX-Seq). Those characteristics specify the constraints to be observed by any given solution (i.e., a transcription binding site). In principle, all true solutions would satisfy them, and anything that satisfied them would in turn be a true solution. Given the "shape"/ "gestalt" of the N-Queens solution, it's just a matter of swapping out functions to implement a simple transcription factor binding site prediction tool.
+</p>
+
+<p>
+Although undeniably a puzzle, real-world biology isn't nearly as tidy as this, which is my hunch as to why so many computer scientists get frustrated with Biology: programming is a very unforgiving task that insists you understand all the subtleties of your problem and how to match those with the features your available hardware and implementation language afford. Attention to detail is critical. Biology's a chaotic maelstrom where we're just more or less hanging on for dear life. Comfort with uncertainty is an asset (which is where statistics and probability theory come in handy). It's tough to pair those yin &amp; yang/ Garfield &amp; Odie/ mine &amp; craft mindsets in a single personality. Don Knuth once <a href="http://www.literateprogramming.com/clb93.html">said</a> that "Biology is so digital, and incredibly complicated...[it] has 500 years of exciting problems to work on." Bioinformatics is the Ultimate. Video. Game. (Trust me, I'm not in this racket for the money...)
+</p>
+ 
+<p>
+Anyhow, I've prepared a <a href="solns/N_QueensProto.pdf">prototype solution</a> in Prolog for the generalized N-Queens problem. Including commentary and demonstration, it's 121 lines long, although the actual solution requires only 16 lines of code. In contrast, my <a href="solns/N_QueensNaive.pdf">naive C++ solution</a> weighs in at 398 lines total. A <a href="solns/N_QueensRefined.pdf">refined version</a> roughly halves the performance time by considering the board symmetry property (cf. infra). None of this is meant to be approaching production-level quality, as the idea is more to explore the features of C++11/14 and OOP design, and more importantly to start recognizing how seemingly disparate problems can be "reduced" to common, reusable patterns. For N-Queens in particular, there are plenty of optimization tricks that I've left on the table, but they would tend to make the code harder to follow and the abstract form underlying the solution more difficult to recognize. That's time better spent leafing through <a href="https://www.ncbi.nlm.nih.gov/books/NBK21054/">Alberts</a>, IMHO.
+</p>
+
+<pre>
+$ gcc --version
+gcc (Ubuntu 10.1.0-2ubuntu1~18.04) 10.1.0
+Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+$ gcc -std=c++14 -Wall -Werror -O2 -c Square_board.cpp NQueens.cpp driver_app.cpp
+$ gcc -std=c++14 -o N_Queens Square_board.o NQueens.o driver_app.o -lstdc++
+$ ./N_Queens 6
+
+Solutions to 6-Queens:
+
+- Q - - - -
+- - - Q - -
+- - - - - Q
+Q - - - - -
+- - Q - - -
+- - - - Q -
+
+
+- - Q - - -
+- - - - - Q
+- Q - - - -
+- - - - Q -
+Q - - - - -
+- - - Q - -
+
+
+- - - Q - -
+Q - - - - -
+- - - - Q -
+- Q - - - -
+- - - - - Q
+- - Q - - -
+
+
+- - - - Q -
+- - Q - - -
+Q - - - - -
+- - - - - Q
+- - - Q - -
+- Q - - - -
+
+$ ./N_Queens 4
+
+Solutions to 4-Queens:
+
+- Q - -
+- - - Q
+Q - - -
+- - Q -
+
+
+- - Q -
+Q - - -
+- - - Q
+- Q - -
+</pre>
+
+<p>
+Along the lines of performance, please consider the following timing table: for 11 &leq; N &leq; 14, we're already seeing that Prolog is about 4X slower than even the naive C++ solution for this toy example. For exploratory work in which you only want to run something once or twice to make an observation, the longer run times of Prolog are more than offset by the shorter development time and reasonable assurance that the program is correct. For repetitive tasks, it's arguably better to limit your efforts in Prolog to prototyping a solution and to use a more resource-efficient language for the production code.
+</p>
+
+<pre>
+N       Prolog prototype   C++ naive     C++ refined
+1       0.000 seconds      0m0.004s      0m0.004s
+2       0.000 seconds      0m0.004s      0m0.004s
+3       0.000 seconds      0m0.004s      0m0.003s
+4       0.000 seconds      0m0.004s      0m0.004s
+5       0.001 seconds      0m0.004s      0m0.004s
+6       0.002 seconds      0m0.004s      0m0.004s
+7       0.011 seconds      0m0.005s      0m0.006s
+8       0.033 seconds      0m0.010s      0m0.016s
+9       0.139 seconds      0m0.037s      0m0.056s
+10      0.699 seconds      0m0.106s      0m0.209s
+11      3.895 seconds      0m0.545s      0m0.970s
+12      23.548 seconds     0m2.932s      0m5.854s
+13      157.896 seconds    0m20.704s     0m38.745s
+14      1021.136 seconds   2m14.889s     4m34.961s
+15      didn't test        17m58.469s    36m14.402s
+16      didn't test        133m24.530s   274m41.864s
+</pre>
+
+<p>
+What about those "resource-efficient languages" there, Cap'n?
+Though not exactly news as of 2021, C++11 is a considerable departure from the erstwhile-dominant C++98 variant, such that nowadays it's probably a good idea to get clarification from someone if you're asked to code something up "in C++." (C++14 is a minor edit on C++11, just as C++03 was on C++98.) A decade or two ago, C++ compilers didn't seem to produce nearly as efficient machine code as what was possible using pure C. My undergrad professors at Kentucky insisted C++ was more intuitive to design software in, particularly given its OOP facilities and the STL, but the C vs. C++ performance gap at the time tipped things in C's favor for me. So, my professors at Iowa State more often than not received C code from me throughout my graduate studies. That performance gap seems to have closed a good deal in the interim though, and with C++11/14/17 spiking in such features as smart pointers, move semantics, lambdas, uniform initialization and automatic type deduction, using C++ to implement lean and mean stuff is entirely sensible now. Bjarne Stroustrup's magnum opus, <a href="https://www.stroustrup.com/4th.html"><i>The C++ Programming Language</i></a>, and Scott Meyers' <a href="https://www.oreilly.com/library/view/effective-modern-c/9781491908419/?cmp=af-code-books-video-product_cj_0636920033707_7708709"><i>Effective Modern C++</i></a> are always on the lab bookshelf.
+</p>
+
+<p>I've heard good things about Go and Rust, but haven't yet had a chance to try implementing anything of substance in either yet. Java and C# are also tossed about as contenders, but they don't strike me as appropriate for scientific computing. Joel Spolsky published an interesting <a href="https://www.joelonsoftware.com/2005/12/29/the-perils-of-javaschools-2/">critique</a> of Java some time ago, suggesting that discerning who among a group of competent Java programmers will or will not be bringing potato salad to the Mensa picnic is much harder than when gauging capabilities in tongues such as C, Lisp or ML. Ergo, unless you have an economic reason or are otherwise being coerced into working with languages such as Java, PHP, JavaScript and Scratch, I would think you're likely to get a better stretch in the gray matter by knuckling down with something like OCaml or Haskell instead. (j/k. Actually, <a href="https://scratch.mit.edu/users/insecterator/">I like Scratch</a>!)
+</p>
+</li>
+
+<li>
+<p>
+A quick review of discrete mathematics: using both Prolog and Scheme,
+implement the factorial, permutation and combination functions,
+ensuring arguments are of the proper data type and are drawn
+from an appropriate range of values.
+</p>
+
+<p>I have embedded Lisp s-exps as commentary/ specifications in my
+Prolog <a href="solns/counting.pdf">implementation</a>
+(copy these in at a Scheme REPL, if interested).
+Note that the use of define-syntax in Scheme is looked on more
+favorably than define-macro nowadays, though feel at liberty to
+use either in my shop.
+BTW, if macros intrigue you, do consider having a read through
+both Paul Graham's <a href="http://www.paulgraham.com/onlisp.html"><i>On Lisp</i></a>
+and Doug Hoyte's <a href="https://letoverlambda.com/"><i>Let Over Lambda</i></a>.
+</p>
+</li>
+
+<li>
+<p>
+Develop a program to count all possible ways to encode "INSECT" using the standard genetic code.
+</p>
+
+<p>
+Prolog counts a total of 576 such encodings of the polypeptide "INSECT":
+</p>
+
+<pre>
+$ cat gencode.pro
+codon(f,ttt). codon(f,ttc). codon(l,tta). codon(l,ttg).
+codon(l,ctt). codon(l,ctc). codon(l,cta). codon(l,ctg).
+codon(i,att). codon(i,atc). codon(i,ata). codon(m,atg).
+codon(v,gtt). codon(v,gtc). codon(v,gta). codon(v,gtg).
+codon(s,tct). codon(s,tcc). codon(s,tca). codon(s,tcg).
+codon(p,cct). codon(p,ccc). codon(p,cca). codon(p,ccg).
+codon(t,act). codon(t,acc). codon(t,aca). codon(t,acg).
+codon(a,gct). codon(a,gcc). codon(a,gca). codon(a,gcg).
+codon(y,tat). codon(y,tac). codon(x,taa). codon(x,tag).
+codon(h,cat). codon(h,cac). codon(q,caa). codon(q,cag).
+codon(n,aat). codon(n,aac). codon(k,aaa). codon(k,aag).
+codon(d,gat). codon(d,gac). codon(e,gaa). codon(e,gag).
+codon(c,tgt). codon(c,tgc). codon(x,tga). codon(w,tgg).
+codon(r,cgt). codon(r,cgc). codon(r,cga). codon(r,cgg).
+codon(s,agt). codon(s,agc). codon(r,aga). codon(r,agg).
+codon(g,ggt). codon(g,ggc). codon(g,gga). codon(g,ggg).
+
+$ swipl -s gencode.pro
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.3)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- maplist(codon,[i,n,s,e,c,t],[I,N,S,E,C,T]), nl.
+
+I = att,
+N = aat,
+S = tct,
+E = gaa,
+C = tgt,
+T = act ;
+
+I = att,
+N = aat,
+S = tct,
+E = gaa,
+C = tgt,
+T = acc ;
+
+I = att,
+N = aat,
+S = tct,
+E = gaa,
+C = tgt,
+T = aca .
+
+?- aggregate_all(count,maplist(codon,[i,n,s,e,c,t],[I,N,S,E,C,T]),Cnt).
+Cnt = 576.
+
+?- halt.
+</pre>
+</li>
+
+<li>
+<p>
+In the preceding problem, we leveraged some standard counting techniques
+from discrete mathematics to explore degeneracy of the genetic code as
+applied to the oligopeptide sequence, "INSECT".
+Now, we're ready to build on that and lock horns with
+some probability theory.
+</p>
+
+<p>
+We consider two competing models that can be thought responsible
+for "generating" protein sequences.
+The first supposes all codons equally likely (i.e., it assumes
+a uniform distribution on codon probabilities), whereas the
+second assumes the distribution presented in
+<a href="http://www.sci.sdsu.edu/~smaloy/MicrobialGenetics/topics/in-vitro-genetics/codon-usage.gif">this image</a>
+(note that the original frequency associated with the UAG codon (0.0003) was modified to 0.004,
+so that probabilities would sum to 1.0 and thus constitute a valid PMF).
+</p>
+
+<p>
+Let us hold the initial belief that our uniformly-distributed model is only
+half as probable as the competing model at generating amino acid sequences.
+Ignoring positional information, which of these two models offers a better
+explanation for the oligopeptide "INSECT", and with what probability?
+</p>
+
+<p>
+a) Uniform distribution, with probabilty 75.0%<br/>
+b) Uniform distribution, with probabilty 6/64<br/>
+c) Non-uniform distribution, with probabilty 2.998 / 3.142<br/>
+d) Non-uniform distribution, with probabilty ~ 51.50%<br/>
+</p>
+
+<p>
+Use Bayes rule: Pr(H|D) = [ Pr(D|H) X Pr(H) ] &divide; Pr(D),
+where 'H' denotes a hypothesis (i.e., a model) to consider and
+'D' denotes data (or evidence, here being the oligopeptide "INSECT").
+Pr(H|D) denotes the posterior probability that a model indexed by
+the value bound to 'H' was in fact responsible for generating data 'D'.
+</p>
+
+<p>
+The Pr(D|H) factor refers to the likelihood of the data
+having been generated by the particular model associated with
+our indexed hypothesis. (Hence, such models are referred
+to as "generative," in contrast to "discriminative" models.)
+</p>
+
+<p>
+Pr(H) refers to the a priori probability
+for the model indexed by 'H', which in an epistemological
+sense conveys our prior beliefs about the matter at hand.
+Here, we solve the system of equations suggested by the problem:
+</p>
+
+<pre>
+Pr( H_{uniform} ) = 0.5 X Pr( H_{non-uniform} )     (1)
+
+Pr( H_{uniform} ) + Pr( H_{non-uniform} ) = 1.0     (2)
+</pre>
+
+<p>
+&there4; Pr( H_{non-uniform} ) = 2/3 and Pr( H_{uniform} ) = 1/3.
+Pr(D) is the probability of "INSECT". This is obtained by
+marginalizing Pr(D|H) X Pr(H) over all possible values of 'H'.
+(Marginalization is to discrete space as integration is to continuous.)
+If we were only interested in which of the competing models was
+most probable, calculating this term would not be necessary:
+we could simply select the maximum a posteriori (MAP) hypothesis,
+which depends only on the numerator of Bayes rule.
+However, the problem also asks for the posterior probability of the
+most probable hypothesis.
+</p>
+
+<p>
+(As an aside, note that calculating Pr(D) is ordinarily very
+difficult for all but the simplest of mathematical expressions,
+particularly in continuous-valued spaces.
+Fortunately, computers are now powerful enough to enable
+Monte Carlo sampling techniques for approximating such integrals.
+This finds usage in, for instance, Bayesian phylogenetics packages
+such as <a href="http://nbisweden.github.io/MrBayes/">MrBayes</a>.)
+</p>
+
+<p>
+Pr(H|D) allows us to realize "Bayesian learning," which is the
+process of iteratively updating our initial beliefs, Pr(H), as
+we reconcile those beliefs with additional training data.
+Such a process cycles until the posterior and prior probability
+distributions become effectively stabilized in the face of
+novel data.
+(Now and again you may even luck into a
+<a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading15a.pdf">conjugate prior</a> for this
+sort of thing.)
+</p>
+
+<p>
+Now for the calculations, using R:
+</p>
+
+<pre>
+* Pr( "INSECT"|H_{uniform} ) : Three codons encode 'I', two 'N', etc.
+For each amino acid encountered, we sum over alternative coding
+possibilities, and then multiply these results to obtain the
+joint probability:
+
+&gt; likelihood_Uniform &lt;- prod(3,2,6,2,2,4) / (4**3)**6
+&gt; likelihood_Uniform
+[1] 8.381903e-09
+
+* Pr( "INSECT"|H_{non-uniform} ) : Sum over probabilities of each path
+that realizes a given amino acid, and then multiply the results to
+obtain the joint probability:
+
+&gt; likelihood_Nonuniform &lt;- prod(
++   sum(0.027,0.027,0.004),
++   sum(0.016,0.026),
++   sum(0.011,0.010,0.007,0.008,0.007,0.015),
++   sum(0.044,0.019),
++   sum(0.004,0.006),
++   sum(0.012,0.024,0.001,0.013))
+&gt; likelihood_Nonuniform
+[1] 4.450572e-09
+
+* Pr( "INSECT" ) = Pr( "INSECT"|H_{uniform} ) X Pr( H_{uniform} ) +
+                   Pr( "INSECT"|H_{non-uniform} ) X Pr( H_{non-uniform} )
+
+&gt; prior_Nonuniform &lt;- 2 / 3
+&gt; prior_Nonuniform
+[1] 0.6666667
+&gt; prior_Uniform &lt;- 1 - prior_Nonuniform
+&gt; prior_Uniform
+[1] 0.3333333
+&gt; prob_Oligo &lt;- likelihood_Uniform * prior_Uniform + likelihood_Nonuniform * prior_Nonuniform
+&gt; prob_Oligo
+[1] 5.761016e-09
+
+* Pr( H_{uniform}|"INSECT" ) :
+
+&gt; posterior_Uniform &lt;- likelihood_Uniform * prior_Uniform / prob_Oligo
+&gt; posterior_Uniform
+[1] 0.4849783
+
+* Pr( H_{non-uniform}|"INSECT" ) :
+
+&gt; posterior_Nonuniform &lt;- likelihood_Nonuniform * prior_Nonuniform / prob_Oligo
+&gt; posterior_Nonuniform
+[1] 0.5150217
+&gt; posterior_Uniform + posterior_Nonuniform
+[1] 1
+</pre>
+
+<p>
+Thus, the answer is <i>Delta</i>.
+Note that by ignoring positional information,
+we've treated the oligopeptide "INSECT" as a bag of amino acids,
+rather than an ordered sequence.
+Amounts calculated above are equally applicable to any
+of the 6! = 720 permutations possible on this string (e.g., "SCENTI").
+</p>
+</li>
+
+<li>
+<p>
+Suppose a colleague approaches you and asks if you could please scan for quorum sensing motifs in gram-negative bacterial sequence data per findings from <a href="https://dx.doi.org/10.1128%2FJB.05125-11">this article</a>. Using basic Machine Learning concepts (e.g., a position weight matrix) and commonly used programming tools in bioinformatics, identify a few candidates.
+</p>
+
+<p>
+See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the lingua franca of "data science" (whatever that <a href="https://quoteinvestigator.com/2015/06/26/not-science/">actually means</a>...). R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." R is nearly indispensable in Bioinformatics, so please do acquire a working knowledge of it if you haven't already.
+</p>
+</li>
+
+<li>
+<p>
+The N-Queens assignment, supra, introduced you to concepts in basic symbolic reasoning, but didn't incorporate any probability concepts or the general notion of acting under uncertainty. Nowadays, the most successful subfield of artificial intelligence is arguably machine learning (aka "data science"), which is deeply rooted in statistics. Much like skateboarding and jazz music, statistics is now justly considered wholesome and acceptable, although it originated within the somewhat more subversive milieu of 17th century European casinos. (Actually, it's even seedier than that, as actuarial scientists too played a role in its formation.)
+</p>
+
+<p>
+Earlier I'd likened bioinformatics to a video game. So, let's write a game, paying homage to statistic's roots in gambling, as well as to the first game presented in one of the most historically important books in personal computing, David Ahl's <i>BASIC Computer Games</i>. Using ANSI C, please implement two software agents, one "dumb" and the other "intelligent," to play the card game of "Acey Ducey." Define these competing strategies however you'd like. Give each agent $100 of starting cash to play with per game; if this cash is depleted, the game ends. Over a series of 1,000 games of not more than 50 hands apiece, record maximum winnings and ending cash per game (i.e., agent fitness) and the total number of hands dealt in each (agent survivability). Do the agents' performances appear to differ along these axes of assessment? Please feel free to skim over Palmby &amp; Ahl's <a href="http://www.vintage-basic.net/bcg/aceyducey.bas">source code</a> to get a sense of the rules of the game. (This won't be a "cheat," as our version should be considerably different and more complex.)
+</p>
+
+<p>
+My solution to this problem is provided <a href="solns/acey_ducey.pdf">here</a> and a spreadsheet presenting the simulated game results is <a href="solns/acey_ducey.results.xlsx">here</a>. Please see comments in the source for details on how it works. Note also that there's not a whiff of BASIC to be found in this C version&mdash;all I aped from Ahl's code were the game rules.
+</p>
+
+<p>
+Although I wouldn't consider my solution a legitimate artificial intelligence application, this exercise gets us a step closer in that direction. AI essentially boils down to developing autonomous agents that not only perform specific tasks, but that also learn to execute them with improved performance (or at least have the capability of doing so) given additional training experience. Here, our "intelligent" agent rigidly follows an arbitrarily-defined policy for each and every game of Acey Ducey it plays; it doesn't identify how it can improve itself, and thus really isn't intelligent in the usual sense of AI. The "dumb" agent also follows a rigid policy, albeit one that's demonstrably worse than that of its counterpart.
+</p>
+
+<p>
+Let's build our executable, run the simulation and then analyze the results from our bakeoff:
+</p>
+
+<pre>
+$ gcc -c -std=c90 -Wall -Werror -O2 acey_ducey.c
+$ gcc -o acey_ducey acey_ducey.o -lm
+$ ./acey_ducey 1000 &gt; log.txt
+$ for a in Dumb Intel; do
+&gt;   for m in Hands End Max; do
+&gt;     grep '^--' log.txt | \
+&gt;       grep -A 3 "^--${a}" | \
+&gt;       grep ${m} &gt; ${a}_${m}.txt
+&gt;   done
+&gt; done
+$ perl prep_table.pl | unix2dos &gt; results.tab-dlm.txt # for Excel import
+</pre>
+
+<p>
+You wish to trace the agents' decisions given individual hands in the spreadsheet, which also incorporates a few summary statistics. What can we say? In our simulations, the dumb agent goes broke in every game, whereas the intelligent version does so with much less frequently (here, in only 1.7% of the games). Over the long run, the intelligent agent provided an average ~3.5X return on our initial outlays, although there's a good deal of variance (and thus risk, both on the up &amp; down sides, particularly in the short-run). The intelligent agent ordinarily persists in playing until the casino calls the game (at 50 hands), whereas the dumb agent lasts only about 10 hands on average. A few scurvy t-tests demonstrate that the agents' fitness and survivability at this game do indeed differ at a significance level of 0.05.
+</p>
+</li>
+
+<li>
+<p>
+You are asked the following question:
+"I learned Fortran back in college and am wondering if that could be useful for building my skills in Bioinformatics?"
+How do you respond?
+</p>
+
+<p>
+If you're developing some type of numerical simulation, <a href="http://www.moreisdifferent.com/2015/07/16/why-physicsts-still-use-fortran/">of course Fortran's useful</a>, but you should probably consider that ship burned so far as text processing and the like is concerned. As an amusing aside, Fortran 77 has been persona non grata in the programming field for as long as I've been involved with it, yet anyone who even superficially glances at R's <a href="https://cran.r-project.org/sources.html">source code</a> will see that roughly a quarter of it (at least in terms of line counts) is implemented in it:
+</p>
+
+<pre>
+$ find R-3.2.2/ -iname "*.f" | xargs wc -l | grep total
+ 236314 total
+$ find R-3.2.2/ -iname "*.[ch]" | xargs wc -l | grep total
+ 455991 total
+$ find R-3.2.2/ -iname "*.r" | xargs wc -l | grep total
+ 190851 total
+$ perl -e '{printf("%.2f\n",236314/(236314+455991+190851));}'
+0.27
+</pre>
+
+<p>
+So, legacy or not, it can't be altogether bad. Which reminds me that there are arguably worse ways to spend an hour or two than prowling around in any of the <a href="http://numerical.recipes/oldverswitcher.html"><i>Numerical Recipes</i></a> titles, of which I personally (and inexplicably) find the F77 flavor easiest to grok.
+</p>
+</li>
+
+<li>
+<p>
+Implement a root bisection method in Haskell.
+(The algorithm can be found among the <i>Numerical Recipes</i> references mentioned above.)
+</p>
+
+<pre>
+$ cat bisect.hs
+{-
+   Michael E. Sparks, 1-2-21
+
+   bisect.hs - Classic root bisection method.
+-}
+
+bisectRoot :: (Fractional a, Ord a) =&gt; (a -&gt; a) -&gt; a -&gt; a -&gt; a -&gt; Maybe a
+bisectRoot fct tol lo hi
+  | not (lo &lt; hi) || loSign == hiSign = Nothing
+  | abs midRes &lt; tol || abs (hiRes + loRes) &lt; tol = Just mid
+  | otherwise = let midSign = signum midRes
+                in case midSign == loSign of
+                     True  -&gt; bisectRoot fct tol mid hi
+                     False -&gt; bisectRoot fct tol lo mid
+  where loRes = fct lo
+        hiRes = fct hi
+        loSign = signum loRes
+        hiSign = signum hiRes
+        mid = (lo + hi) / 2
+        midRes = fct mid
+
+{-
+Consider plotting in R, to observe behavior proximal to root(s):
+
+&gt; myCubeFct = function(x) { (x - 5) * (x + 2) * (x + 9) }
+&gt; plot(myCubeFct,xlim=range(-12:12),ylim=range(-400:400))
+&gt; abline(h=0)
+-}
+
+myCubeFct x = (x - 5) * (x + 2) * (x + 9)
+myCubeFct' x = (x - 5.0003002) * (x + 2.00002) * (x + 9.4)
+
+$ ghci
+GHCi, version 8.0.2: http://www.haskell.org/ghc/  :? for help
+Loaded GHCi configuration from /home/mespar1/.ghci
+ghci&gt; :l bisect.hs
+[1 of 1] Compiling Main             ( bisect.hs, interpreted )
+Ok, modules loaded: Main.
+ghci&gt; bisectRoot myCubeFct 1e-10 (-3) 1
+Just (-2.0)
+ghci&gt; bisectRoot myCubeFct' 1e-10 4 256
+Just 5.000300200000822
+ghci&gt; bisectRoot myCubeFct 1e-10 (-8.94) (-10.25)
+Nothing
+ghci&gt; bisectRoot myCubeFct 1e-10 (-10.25) (-8.94)
+Just (-9.000000000000178)
+ghci&gt; bisectRoot myCubeFct' 1e-10 (-8.94) (-10.25)
+Nothing
+ghci&gt; bisectRoot myCubeFct' 1e-10 (-10.25) (-8.94)
+Just (-9.400000000000603)
+ghci&gt; bisectRoot myCubeFct 1e-10 2 4
+Nothing
+ghci&gt; bisectRoot myCubeFct 1e-10 7 12
+Nothing
+ghci&gt; bisectRoot myCubeFct 1e-10 2 12
+Just 4.999999999999545
+ghci&gt;
+Leaving GHCi.
+</pre>
+</li>
+
+<li>
+<p>
+Suppose a colleague approaches you and asks how to analyze the set of simple sequence repeat records provided in <a href="solns/SSR_data.csv.txt">this</a> comma-separated values file. You glance it over and immediately recognize this as a compelling case in which to prepare a set of pairwise Euclidean distances for feeding into a neighbor-joining tree building method. Using a functional approach, compute an appropriate distance matrix for this.
+</p>
+
+<p>
+Purely functional languages such as Haskell are those that steer clear of side effects and state. In principle, they are readily parallelizable, scaling to high-performance computing environments with comparatively less effort than what would be necessary using something like an <a href="https://www.open-mpi.org/">MPI library</a> in a C program. Haskell is also a strongly typed language. Together, these features allow us to reason about and prove the correctness of our programs more easily than we might with other tools. In my <a href="solns/SSR_data.Euclid.pdf">solution</a>, I've adhered to functional purity with the necessary exception of handling I/O. A sample session follows.
+</p>
+
+<pre>
+$ ghc -O2 --make SSR_data.Euclid.hs
+[1 of 1] Compiling Main             ( SSR_data.Euclid.hs, SSR_data.Euclid.o )
+Linking SSR_data.Euclid ...
+
+$ ./SSR_data.Euclid | md5sum &amp;&amp; md5sum matrix.tab-delim.txt
+e5d3d6e648597f08ca14776fcd43fb77  -
+e5d3d6e648597f08ca14776fcd43fb77  matrix.tab-delim.txt
+</pre>
+</li>
+ 
+<li>
+<p>
+The Illumina sequencing platform ordinarily generates output files in FASTQ format. FASTQ utilizes the ASCII character set and, as with most plain-text data, can readily be reduced to something more compact using ordinary compression tools. Suppose disk space is at a premium at your installation, and you need to compress all such files stored in its filesystem tree. (There may not be any such files, however!) These have the suffix of "fastq". You can devote up to eight processes to accomplish this task, and memory is not a limiting factor.
+</p>
+
+<p>
+Unfortunately, your users have a tendency to include blank spaces in their filenames, and are inconsistent in their use of lower- and upper-case letters. They also scatter their files in unpredictable locations; in their defense, though, this practice arises due to scarcity of storage space across the various logical volumes mounted on your system.
+</p>
+
+<p>
+As system administrator with full root privileges, issue a single executable statement at the command line that will compress all resident FASTQ files given the aforementioned constraints and characteristics. Files should be compressed using the optimal compression level achievable with ordinary, modern GNU utilities.
+</p>
+ 
+<p>
+Here's the invocation:
+</p>
+
+<pre>
+$ sudo nohup bash -c "find / -iname "*.FASTQ" -type f -print0 | xargs --null -r -P 8 -n 1 xz -9 &amp;"
+
+[sudo] password for mespar1:
+
+nohup: ignoring input and appending output to 'nohup.out'
+
+$ exit
+</pre>
+
+<p>
+The xz utility generally delivers better compression performance than does gzip or bzip2, and its optimal compression level is achieved using the -9 option. find and xargs pair well on Unix systems (think "search and destroy"), and it's well worth reading their manual pages to see what they're capable of. Here, the "-print0" and "--null" flags accommodate blanks in filenames, very often present in files obtained from Windows systems (otherwise, xargs might apply its procedure argument to fragments of filenames, which may or may not exist and are almost certainly not what was intended!). The "-iname" option permits pattern matching against filenames in a case-independent manner. If find finds no such files, the "-r" option to xargs prevents it from attempting to process an empty list. Parallelism is achieved using the "-P" parameter in conjunction with "-n": the former connotes the number of processes to use, and the latter how many elements of the list supplied by find should be processed by each invocation of xargs' procedure argument, here xz.
+</p>
+
+<p>
+Here, the sudo qualifier is used because it's generally ill-advised to perform work logged in as root. The nohup utility is used so that, if your terminal session was taking place at a physically insecure location, over an unstable network connection or on a system you do not intend to access again, you can simply logout (voluntarily or otherwise) without killing your job. As mentioned supra, I categorically prefer using the screen utility for such tasks.
+</p>
+
+<p>
+On a related note, please also become familiar with basic process concepts, including PID, PPID, zombies, orphans, daemons and so forth. Also, please become familiar with the suite of basic signals and signal handlers made available by the Linux kernel/ POSIX systems (i.e., see "$ man 7 signal"): kill -TSTP (or kill -STOP) and kill -CONT are lifesavers (the command name notwithstanding). Should there be an emergency and I need to stop your job, rest assured that I will suspend it by these means and courteously notify you of the situation immediately thereafter (rather than kill -9 it and clam up until you discover this fact and accost me about it...a faux pas that was repeatedly inflicted on me in a prior working environment, but I digress.)
+</p>
+</li>
+
+<li>
+<p>
+The solution to the problem above demonstrated how to utilize xargs' max-procs parameter to achieve a form of parallelism on machines supporting multiple logical processors (i.e., practically any system available in the hardware market nowadays). The problem below introduces various looping constructs available from a Bash interpreter. Working with what are essentially serial software components, demonstrate another means to achieve parallelism on a multi-[processor|core|threaded] machine from the command line, preferably utilizing unnamed pipes, the tee command and process substitution. Are you aware of any recently-developed tools that might make expressing such parallel constructs much easier?
+</p>
+
+<p>
+Here's a construct I once used to pre-process single-ended Illumina RNA-Seq reads for global transcriptome assembly and alignment to assembled transcripts. (I no longer use the FASTX toolkit in my workflows, though it once was an important part of my QC and read trimming activities.) Naturally, given a pool of many available processes, more work can be done per unit time with a parallel approach than in performing the tasks in a piecemeal, linear fashion using fewer processes. This invocation shows in concrete terms how standard Linux command line features can be combined with what are essentially serial software components to achieve parallelism.
+</p>
+
+<pre>
+for f in `ls *.fastq.gz`; do
+  ( cat $f | \
+    gzip -dc | \
+    dos2unix | \
+    tee &gt;(bzip2 -c &gt; `basename $f .gz`_pre.bz2) | \
+    fastx_artifacts_filter -Q 33 | \
+    fastq_quality_trimmer -t 21 -l 36 -Q 33 | \
+    fastq_quality_filter -q 21 -p 90 -Q 33 | \
+    fastq_masker -q 21 -Q 33 | \
+    tee &gt;(bzip2 -c &gt; `basename $f .gz`_post.bz2) | \
+    fastq_to_fasta -Q 33 | \
+    bzip2 -c &gt; `basename $f .fastq.gz`.fasta_post.bz2 ; \
+  rm $f ) &amp;
+done
+</pre>
+
+<p>
+Another GNU tool worth looking into is <a href="https://www.gnu.org/software/parallel/">parallel</a>. There's some overhead involved in learning it, but it's quite versatile and makes expressing these kinds of constructs far simpler and less error-prone. <a href="http://parafly.sourceforge.net/">ParaFly</a> has served me very well over the years, too.
+</p>
+</li>
+
+<li>
+<p>
+Write a shell script (using Bash) to print all combinations of the set ["Hello", "Cello", "Mello", "Jello"] with the set ["World", "Moon", "Sun"] to the stdout stream, to be rendered on a typical Linux terminal. Print all combinations in place (i.e., do not issue newlines between combinations), and allow roughly a one-second duration between consecutive display events. Cycle through these combinations for roughly one minute of real time, and finally terminate after printing some departing message of your choosing and alerting the user of its completion.
+</p>
+
+<p>
+It's possible to become very productive using Bash without learning an awful lot of it. I'd actually tend to discourage folks from using it for sophisticated tasks, as these can usually be performed much more efficiently in other languages. As the language of your ordinary command line interpreter, however, it's naturally an excellent tool for system administration in general. Naturally, it's also an excellent tool for arranging and automating your bioinformatics workflows in a fairly robust manner, which is the issue at hand here.
+</p>
+
+<p>
+This exercise was intended to familiarize you with some basic Bash looping constructs and variable types, and the sleep command. The matter of timing is useful for being a good internet citizen: high-bandwidth transfers can be scheduled for off-peak hours using such utilities as "at", your code can better interact with remote servers by using "sleep" (in conjunction with a random number generator) to provide adequate cool-off time between the opening of successive network socket connections, etc. The "cron" system is good to know about, too.
+</p>
+
+<pre>
+$ chmod 755 in-place_messaging.sh &amp;&amp; cat in-place_messaging.sh
+#!/bin/bash
+
+# Michael E. Sparks, 10-19-16
+
+if [ -n "$1" ]; then
+  iter=$1
+else
+  iter=1 # default value
+fi
+
+declare -a firsts=(H C M J)
+declare -a seconds=("World" "Moon" "Sun")
+delay="1s" # argument to the sleep utility
+
+for anon in `seq 1 $iter`; do
+  for i in "${seconds[@]}"; do
+    # Clear the line, print message string and
+    # then return the carriage without issuing
+    # a line feed command. (It's not coincidental
+    # that this seems awfully similar to how a real,
+    # mechanical typewriter works:
+    # https://en.wikipedia.org/wiki/Teletype_Model_33 )
+
+    echo -en "\e[K ello $i\r"
+
+    for j in `seq 0 3`; do
+      echo -en "${firsts[$j]}\r"
+      sleep $delay
+    done
+
+  done
+done
+
+# Ringing the terminal bell provides
+# a soundtrack for this ``motion picture."
+# (More practically, it helps alert you that
+# a scripted procedure has completed, needs
+# attention, etc.)
+
+echo -e "Happy Trails!\a"
+
+exit 0
+
+$ time ./in-place_messaging.sh 5 # Movie time!
+Happy Trails!
+
+real    1m0.164s
+user    0m0.093s
+sys     0m0.067s
+
+</pre>
+</li> 
+</ol>
+<hr>
+<pre>EOF</pre>
+</body>
+</html>
