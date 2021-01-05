@@ -610,7 +610,7 @@ Response = [goodbye, and, have, a, nice, day, '.'].
 </pre>
 
 <p>
-To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, and red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty are the basis for the famous "You are likely to be eaten by a <i>grue</i>" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>. (?)
+To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, and red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty is the basis for the famous "You are likely to be eaten by a <i>grue</i>" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>. (?)
 </p>
 
 <p>
@@ -1173,7 +1173,7 @@ Pr(D) is the probability of "INSECT". This is obtained by
 marginalizing Pr(D|H) X Pr(H) over all possible values of 'H'
 (marginalization is to discrete space as integration is to continuous).
 If we were only interested in which of the competing models was
-most probable, calculating this term would not be necessary:
+most probable, calculating this value would not be necessary:
 we could simply select the maximum a posteriori (MAP) hypothesis,
 which depends only on the numerator of Bayes rule.
 However, the problem also asks for the posterior probability of the
