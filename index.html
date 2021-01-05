@@ -290,11 +290,11 @@ $9 = #f
  
 <li>
 <p>
-Would a log transformation of our floating-point numerical data traverse the issue addressed by the immediately preceding problem? Why would we ever work in log space, anyhow?
+In the preceding problem, would a log transformation of the floating-point values traverse the numerical differentiation issue we encountered? Why would we ever work in log space, anyhow?
 </p>
 
 <p>
-A log transformation of floating-point numerical data would NOT ordinarily traverse the issue of inconsistently distinguishing numerical amounts: log-transformed values are themselves numerical, and in any case are a function of the original amounts...which were themselves numerical values that the machine may not have been physically capable of differentiating. For instance, we can see this by repurposing the definition of approximate-system-epsilon developed above:
+A log transformation of floating-point input data would not ordinarily traverse the issue of inconsistently distinguishing numerical amounts: log-transformed values are themselves numerical, and in any case are a function of the original amounts...which were themselves numerical values that the machine may not have been physically capable of differentiating. For instance, we can see this by repurposing the definition of approximate-system-epsilon developed above:
 </p>
 
 <pre>
@@ -315,7 +315,7 @@ scheme@(guile-user)&gt;
 </pre>
  
 <p>
-Log-transformations are useful for preventing buffer under- and overflows vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for instance (sums of logs are taken instead).
+Log-transformations are useful for preventing buffer under- and overflows vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for example (exponentiating the sum of logarithms is done instead). The key takeaway here is to acknowledge the limitations of computing hardware, which do not yet enable the realization of truly "executable mathematics."
 </p>
 </li>
  
@@ -338,20 +338,20 @@ $ perl -e 'for $i (1..100) {print ((($i%15==0)?"FizzBuzz":($i%3==0)?"Fizz":($i%5
 Python solution, issued from its REPL:
 
 <pre>
-$ python
-Python 2.7.17 (default, Sep 30 2020, 13:38:04)
-[GCC 7.5.0] on linux2
+$ python3
+Python 3.6.9 (default, Oct  8 2020, 12:12:24)
+[GCC 8.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
-
-&gt;&gt;&gt; for i in xrange(1,101):
-...     if i % 15 == 0:
-...         print "FizzBuzz"
-...     elif i % 3 == 0:
-...         print "Fizz"
-...     elif i % 5 == 0:
-...         print "Buzz"
-...     else:
-...         print str(i)
+&gt;&gt;&gt; for i in range(1,101):
+...   if i % 15 == 0:
+...     print("FizzBuzz")
+...   elif i % 3 == 0:
+...     print("Fizz")
+...   elif i % 5 == 0:
+...     print("Buzz")
+...   else:
+...     print(str(i))
+...
 </pre>
 </li>
 </ul>
