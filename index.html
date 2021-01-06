@@ -4,13 +4,25 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<style>
-h2 {text-align: center;}
-</style>
 <title>Cap'n Sparky's Tutorial</title>
 </head>
-<body>
-<h2>Cap'n Sparky's<br/>Bioinformatics Ramp-up Sheet</h2>
+<body style="background-color:gainsboro">
+<div>
+  <table style="margin-left:auto;margin-right:auto;width:100%">
+    <tbody><tr>
+      <td style="text-align:left">
+        <img class="padded" alt="Skyline Caverns, VA" height="175" width="233" src="easterEggs/advent1.jpg">
+      </td>
+      <td style="text-align:center">
+        <h2>Cap'n Sparky's<br/>Computational Biology<br/>Ramp-up Sheet</h2>
+      </td>
+      <td style="text-align:right">
+        <img class="padded" alt="Skyline Caverns, VA" height="175" width="233" src="easterEggs/advent2.jpg">
+      </td>
+    </tr></tbody>
+  </table>
+</div>
+<hr>
 <h4>About</h4>
 <p>
 I am a <a href="https://www.ars.usda.gov/people-locations/person/?person-id=46016">Computational Biologist</a>
@@ -458,7 +470,7 @@ true.
 |:   nl,
 |:   write(I),
 |:   write(" disks:\n"),
-|:   hanoi(I,left,right,ctr),
+|:   hanoi(I,left,right,center),
 |:   I1 is I + 1,
 |:   hanoi_driver(I1,Ceil).
 |: ^D% user://1 compiled 0.02 sec, 1 clauses
@@ -470,35 +482,35 @@ true.
 left -&gt; right
 
 2 disks:
-left -&gt; ctr
+left -&gt; center
 left -&gt; right
-ctr -&gt; right
+center -&gt; right
 
 3 disks:
 left -&gt; right
-left -&gt; ctr
-right -&gt; ctr
+left -&gt; center
+right -&gt; center
 left -&gt; right
-ctr -&gt; left
-ctr -&gt; right
+center -&gt; left
+center -&gt; right
 left -&gt; right
 
 4 disks:
-left -&gt; ctr
+left -&gt; center
 left -&gt; right
-ctr -&gt; right
-left -&gt; ctr
+center -&gt; right
+left -&gt; center
 right -&gt; left
-right -&gt; ctr
-left -&gt; ctr
+right -&gt; center
+left -&gt; center
 left -&gt; right
-ctr -&gt; right
-ctr -&gt; left
+center -&gt; right
+center -&gt; left
 right -&gt; left
-ctr -&gt; right
-left -&gt; ctr
+center -&gt; right
+left -&gt; center
 left -&gt; right
-ctr -&gt; right
+center -&gt; right
 false.
 
 ?- halt.
@@ -607,7 +619,7 @@ To embellish a bit, the idea is you find lists (of strings, being either single 
 </p>
 
 <p>
-A few additional remarks concerning the potential for using Prolog as a first language, particularly relevant to interns who may not yet have a language under their belt: Prolog forces you to think about accurately specifying the problem you want to solve rather than have you get bogged down in syntactical details. Similar to Lisp, Prolog's syntactical structure is quite minimal. When the target language is something like C++ or Java, it's very easy for beginners to sit at a machine, start drafting code and suddenly be imbued with the sensation of productivity. Oftentimes, that sensation is illusory, however, as they are spending much effort implementing an incorrect solution to their problem. The flawed reasoning is eventually realized, and suddenly the would-be programmer gets frustrated after realizing so much hard work was in vain. This happens on a few occasions, and the would-be programmer (whose skills might have been used, say, to cure the common cold) then sadly throws in the towel. Prolog may make this scenario less likely. For challenging problems, I'll often first code up a prototype solution in something like Lisp or Prolog just to make sure my thinking is correct, and only then move to implementing in another language (if it's truly necessary over efficiency concerns).
+A few additional remarks concerning the potential for using Prolog as a first language, particularly relevant to interns who may not yet have a language under their belt: Prolog forces you to think about accurately specifying the problem you want to solve rather than have you get bogged down in syntactical details. Similar to Lisp, Prolog's syntactical structure is quite minimal. When the target language is something like C++ or Java, it's very easy for beginners to sit at a machine, start drafting code and suddenly be imbued with the sensation of productivity. Oftentimes, that sensation is illusory, however, as they are spending much effort implementing an incorrect solution to their problem. The flawed reasoning is eventually discovered, and suddenly the would-be programmer gets frustrated after realizing so much hard work was in vain. This happens a few times, and the would-be programmer (whose skills might have been used, say, to cure the common cold) then sadly throws in the towel. Prolog may make this scenario less likely. For challenging problems, I'll often first code up a prototype solution in something like Lisp or Prolog just to make sure my thinking is correct, and only then move to implementing in another language (if it's truly necessary over efficiency concerns).
 </p>
 
 <p>
@@ -631,7 +643,7 @@ documentation and tutorials is also recommended.
 Use Excel VBA to post-process the ELIZA dialogue shown above, converting lists of atoms into sentences.
 
 <p>
-Excel is a tool that many biologists are comfortable with and spreadsheets are often used as a common currency of information exchange with bioinformaticians. Having been among the last cohorts of American undergraduates whose math texts often included examples and exercises in BASIC, I'm not altogether averse to using something like VBA now and again to support a project. Few Office users are aware of it, and probably fewer actually ever use it, but a Turing-complete programming environment indeed lurks beneath every spreadsheet (at least on Windows; AFAIK, Office for Mac doesn't include a VBA interpreter). Open a blank workbook, hit Alt + F11 to enter the VBA IDE, and <i>poke</i> around a <i>bit</i> (no pun intended: "POKE" and "PEEK" are memory access commands from BASIC, and 8 bits = 1 byte).
+Excel is a tool that many biologists are comfortable with and spreadsheets are often used as a common currency of information exchange with bioinformaticians. Having been among the last cohorts of American undergraduates whose math texts often included examples and exercises in <a href="https://time.com/69316/basic/">BASIC</a>, I'm not altogether averse to using something like VBA now and again to support a project. Few Office users are aware of it, and probably fewer actually ever use it, but a Turing-complete programming environment indeed lurks beneath every spreadsheet (at least on Windows; AFAIK, Office for Mac doesn't include a VBA interpreter). Open a blank workbook, hit Alt + F11 to enter the VBA IDE, and <i>poke</i> around a <i>bit</i> (no pun intended: "POKE" and "PEEK" are memory access commands from BASIC, and 8 bits = 1 byte).
 </p>
 
 <p>
