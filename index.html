@@ -52,16 +52,16 @@ time spent in my shop wasn't overly disruptive to their trajectories, either.
 </p>
 
 <p>
-As is typical in this field, some enter into the practice of Bioinformatics
-with backgrounds skewed more towards Biology and others having emphasized
-Computer Science to a greater extent;
+As is typical in this field, some enter into the practice of bioinformatics
+with backgrounds skewed more towards biology and others having emphasized
+computer science to a greater extent;
 in either case, my duty as mentor is to intellectually stimulate the
 apprentice so that he or she approaches scientific problems from a truly
 multidisciplinary perspective.
-(I've yet to manage any individuals who prioritized Statistics training
+(I've yet to manage any individuals who prioritized statistics training
 in their academic preparation, but the expectations would be similar.)
 My impression is that much of the content I present below isn't part of
-undergraduate and graduate training curricula in Computational Biology
+undergraduate and graduate training curricula in computational biology
 or related fields
 (I'm largely an autodidactic programmer with arguably peculiar interests),
 so the hope is that working through these problems in earnest will complement
@@ -387,11 +387,11 @@ If you want a sense of what the Python and Perl code emitted from my fingers usu
 
 <ul>
 <li>
-A Python <a href="http://brendelgroup.org/mespar1/gthxml/xGDBload_PgsFromgthxml.py">module</a> I wrote in 2006 that Extracts data from an XML-formatted data structure and then Transforms it into SQL statements which are Loaded into an RDBMS (all the cool kids are doing this <a href="https://improvado.io/blog/etl-process-extract-transform-load">ETL thing</a> nowadays, so it's really "dope").
+A Python <a href="http://brendelgroup.org/mespar1/gthxml/xGDBload_PgsFromgthxml.py">module</a> I wrote in 2006 that extracts data from an XML-formatted data structure and then transforms it into SQL statements which are loaded into an RDBMS (all the cool kids are doing this <a href="https://improvado.io/blog/etl-process-extract-transform-load">ETL thing</a> nowadays, so it's really "dope").
 </li>
 
 <li>
-A Perl <a href="http://brendelgroup.org/mespar1/gthxml/GSQ2XML.pl">script</a> I wrote in 2003 that Extracts data from a plain text-formatted data structure and then Transforms it into a tree structure which is Loaded into an XML document (it also implements an ETL process, but is perhaps not dope because it is <a href="https://news.ycombinator.com/item?id=21180154">written in Perl</a>).
+A Perl <a href="http://brendelgroup.org/mespar1/gthxml/GSQ2XML.pl">script</a> I wrote in 2003 that extracts data from a plain text-formatted data structure and then transforms it into a tree structure which is loaded into an XML document (it also implements an ETL process, but is perhaps not dope because it is <a href="https://news.ycombinator.com/item?id=21180154">written in Perl</a>).
 </li>
 </ul>
 
@@ -405,7 +405,7 @@ My solution to this is found <a href="solns/forthLite.pdf">here</a>. The Perl pr
 </p>
 
 <p>
-The interpreter code consists of three s-exp's: a macro definition, a function definition, and a top-level invocation to tell the Guile interpreter what should actually run when it's called from the Bash shell (this is the first example I've presented where Lisp code executes outside of an interactive environment).
+The interpreter code consists of three s-exp's: a macro definition, a function definition, and a top-level invocation to tell the Guile interpreter what should actually run when it's called from the Bash shell (here, Lisp code executes outside of an interactive environment).
 </p>
 </li>
 
@@ -561,8 +561,7 @@ Launch Emacs' built-in ELIZA ("Meta-x doctor") and ponder how basic pattern matc
 </p>
 
 <p>
-Woodshedding on ELIZA is a rite of passage for AI enthusiasts, and it exemplifies how pattern matching can be used to implement something akin to a switch statement from C. Declarative programming can be achieved with any of the logic, goal-based languages (in contrast to procedural, imperative variants such as Java, C/C++, Fortran, Pascal, BASIC, etc.), among which Prolog is especially popular. Indeed, Prolog finds use in such modern applications as IBM's Watson system
-(see <a href="https://www.cs.nmsu.edu/ALP/2011/03/natural-language-processing-with-prolog-in-the-ibm-watson-system/">here</a> and <a href="https://developer.ibm.com/technologies/artificial-intelligence/articles/cc-languages-artificial-intelligence/">here</a>, for example). Some background in predicate calculus/ propositional logic is helpful, but arguably not necessary to prepare useful Prolog programs. In the declarative paradigm, you tell the machine what you want rather than give it explicit directions for how to do something&mdash;to egregiously oversimplify reality, the machine automagically figures it out. Thus, this could be an attractive place to begin learning about programming for those without prior experience/ pre-conceived notions of what a program ought to look like: focus first on the logic and the correct solution to a problem, and later contemplate the minutiae of optimization.
+Woodshedding on ELIZA is a rite of passage for AI enthusiasts, and it exemplifies how pattern matching can be used to implement something akin to a switch statement from C. Declarative programming can be achieved with any of the logic, goal-based languages (in contrast to procedural, imperative variants such as Java, C/C++, Fortran, Pascal, BASIC, etc.), among which Prolog is especially popular. Indeed, Prolog finds use in such modern applications as IBM's Watson (see <a href="https://www.cs.nmsu.edu/ALP/2011/03/natural-language-processing-with-prolog-in-the-ibm-watson-system/">here</a> and <a href="https://developer.ibm.com/technologies/artificial-intelligence/articles/cc-languages-artificial-intelligence/">here</a>, for example). Some background in predicate calculus/ propositional logic is helpful, but arguably not necessary to prepare useful Prolog programs. In the declarative paradigm, you tell the machine what you want rather than give it explicit directions for how to do something&mdash;to egregiously oversimplify reality, the machine automagically figures it out. Thus, this could be an attractive place to begin learning about programming for those without prior experience/ pre-conceived notions of what a program ought to look like: focus first on the logic and the correct solution to a problem, and later contemplate the minutiae of optimization.
 </p>
 
 <p>
@@ -615,7 +614,7 @@ Response = [goodbye, and, have, a, nice, day, '.'].
 </pre>
 
 <p>
-To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, and red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty is the basis for the famous "You are likely to be eaten by a <i>grue</i>" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>. (?)
+To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, and red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty is the basis for the famous "You are likely to be eaten by a <i>grue</i>" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>.
 </p>
 
 <p>
@@ -623,7 +622,7 @@ A few additional remarks concerning the potential for using Prolog as a first la
 </p>
 
 <p>
-A second strength is that Prolog's arguably optimized for non-numeric, symbolic computing. As folks who were naturally inclined to study Biology, let's be honest: this is the way in which we tend to internalize our world and reason about it. Admittedly, I don't ordinarily have an internal dialogue of formal logic rolling in my head, but I also certainly don't perceive the world using the sort of linear algebra-based stochastic models underpinning the current darling of AI, the connectionist-based "deep learning" subfield (see <a href="https://www.deeplearningbook.org/">here</a>). I'm a fan of DL/ML&mdash;and in fact I completed a <a href="https://doi.org/10.31274/rtd-180813-16829">doctoral thesis</a> far more quantitative in nature than qualitative&mdash;but I'm not keen to outright disregard logic programming and the utility of <a href="https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence">GOFAI</a>. (A <a href="https://lib.dr.iastate.edu/cs_techreports/78/">technical report</a> by Vasant Honavar, whose excellent AI and ML courses I was fortunate enough to take as a graduate student, explores this symbolic-numeric duality in detail.)
+A second strength is that Prolog's arguably optimized for non-numeric, symbolic computing. As folks who were naturally inclined to study Biology, let's be honest: this is the way in which we tend to internalize our world and reason about it. Admittedly, I don't ordinarily have an internal dialogue of formal logic rolling in my head, but I also certainly don't perceive the world using the sort of linear algebra-based stochastic models underpinning the current darling of AI, the connectionist-based "deep learning" subfield (see <a href="https://www.deeplearningbook.org/">here</a>). I'm a fan of DL/ML&mdash;and in fact I completed a <a href="https://doi.org/10.31274/rtd-180813-16829">doctoral thesis</a> much more quantitative in nature than qualitative&mdash;but I'm not keen to outright disregard logic programming and the utility of <a href="https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence">GOFAI</a>. (A <a href="https://lib.dr.iastate.edu/cs_techreports/78/">technical report</a> by Vasant Honavar, whose excellent AI and ML courses I was fortunate enough to take as a graduate student, explores this symbolic-numeric duality in detail.)
 </p>
 
 <p>
@@ -779,7 +778,7 @@ In various contexts, one-dimensional arrays that can be indexed, similar to the 
 
 <li>
 <p>
-Implement the binary search tree, a fundamental data structure, in Prolog. Biologists are already familiar with phylogenetic trees, so these won't be much of a conceptual leap if you've not previously seen them. In Computer Science, they are useful in that they allow for quicker lookups (taking O(log n) time, provided the tree is well-balanced) than would an ordinary one-dimensional list (requiring time linear in N). In particular, binary search trees are prominent in matters of database design. (Incidentally, there's also a data query language called Datalog that "nerfs" Prolog down to a safe subset for use in production databases, inhabiting the database languages world alongside SQL, XML &amp; XQuery, RDF &amp; OWL, etc.)
+Implement the binary search tree, a fundamental data structure, in Prolog. Biologists are already familiar with phylogenetic trees, so these won't be much of a conceptual leap if you've not previously seen them. In computer science, they are useful in that they allow for quicker lookups (taking O(log n) time, provided the tree is well-balanced) than would an ordinary one-dimensional list (requiring time linear in N). In particular, binary search trees are prominent in matters of database design. (Incidentally, there's also a data query language called Datalog that "nerfs" Prolog down to a safe subset for use in production databases, inhabiting the database languages world alongside SQL, XML &amp; XQuery, RDF &amp; OWL, etc.)
 </p>
 
 <p>
@@ -853,7 +852,7 @@ Rather than thinking of operations in terms of push/ pop actions, we can re-expr
 </p>
 
 <p>
-This means-ends analysis using goal regression can then be used within the depth-first search via iterative deepening framework we explored in the letter sorting and farmer-chicken-wolf-grain problems. It can also be used in backward- and forward-chaining, as well as bidirectional, breadth-first search. (Spoiler alert: bidirectional search outperforms the other methods.) That said, none of these brute-force approaches are particularly efficient, but they do get us to start thinking about solution spaces and the importance of incorporating domain-specific heuristics to help guide the search process.
+This means-ends analysis using goal regression can then be used within the depth-first search via iterative deepening framework we explored in the letter sorting and farmer-chicken-wolf-grain problems. It can also be used in backward- and forward-chaining, as well as bidirectional, breadth-first search. (In my implementation, bidirectional search outperformed the other methods.) That said, none of these brute-force approaches are particularly efficient, but they do get us to start thinking about solution spaces and the importance of incorporating domain-specific heuristics to help guide the search process.
 </p>
 
 <p>
@@ -1271,11 +1270,11 @@ of the 6! = 720 permutations possible on this string (e.g., "SCENTI").
 
 <li>
 <p>
-Suppose a colleague approaches you and asks if you could please scan for quorum sensing motifs in gram-negative bacterial sequence data per findings from <a href="https://dx.doi.org/10.1128%2FJB.05125-11">this article</a>. Using basic Machine Learning concepts (e.g., a position weight matrix) and commonly used programming tools in bioinformatics, identify a few candidates.
+Suppose a colleague approaches you and asks if you could please scan for quorum sensing motifs in gram-negative bacterial sequence data per findings from <a href="https://dx.doi.org/10.1128%2FJB.05125-11">this article</a>. Using basic machine learning concepts (e.g., a position weight matrix) and commonly used programming tools in bioinformatics, implement a tool for this task.
 </p>
 
 <p>
-See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the lingua franca of "data science" (whatever that <a href="https://quoteinvestigator.com/2015/06/26/not-science/">actually means</a>). R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." R is nearly indispensable in Bioinformatics, so please do acquire a working knowledge of it if you haven't already.
+See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the lingua franca of "data science" (whatever that <a href="https://quoteinvestigator.com/2015/06/26/not-science/">actually means</a>). R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." R is nearly indispensable in bioinformatics, so please do acquire a working knowledge of it if you haven't already.
 </p>
 </li>
 
@@ -1322,12 +1321,12 @@ You may wish to trace the agents' decisions given individual hands in the spread
 <li>
 <p>
 You are asked the following question:
-"I learned Fortran back in college and am wondering if that could be useful for building my skills in Bioinformatics?"
+"I learned Fortran back in college and am wondering if that could be useful for building my skills in bioinformatics?"
 How do you respond?
 </p>
 
 <p>
-If you're developing some type of numerical simulation, <a href="http://www.moreisdifferent.com/2015/07/16/why-physicsts-still-use-fortran/">of course Fortran's useful</a>, but you should probably consider that ship burned so far as text processing and the like is concerned. As an amusing aside, Fortran 77 has been persona non grata in the programming field for as long as I've been involved with it, yet anyone who even superficially glances at R's <a href="https://cran.r-project.org/sources.html">source code</a> will see that roughly a quarter of R (at least in terms of line counts) is implemented in Fortran:
+If you're developing some type of numerical simulation, <a href="http://www.moreisdifferent.com/2015/07/16/why-physicsts-still-use-fortran/">of course Fortran's useful</a>, but you should probably consider that ship burned so far as serious text processing and the like is concerned. As an amusing aside, Fortran 77 has been persona non grata in the programming field for as long as I've been involved with it, yet anyone who even superficially glances at R's <a href="https://cran.r-project.org/sources.html">source code</a> will note that roughly a quarter of R (at least in terms of line counts) is implemented in crufty ole Fortran:
 </p>
 
 <pre>
@@ -1457,7 +1456,7 @@ $ exit
 </pre>
 
 <p>
-The xz utility generally delivers better compression performance than does gzip or bzip2, and its optimal compression level is achieved using the -9 option. find and xargs pair well on Unix systems (think "search and destroy"), and it's well worth reading their manual pages to see what they're capable of. Here, the "-print0" and "--null" flags accommodate blanks in filenames, very often present in files obtained from Windows systems (otherwise, xargs might apply its procedure argument to fragments of filenames, which may or may not exist and are almost certainly not what was intended). The "-iname" option permits pattern matching against filenames in a case-independent manner. If find finds no such files, the "-r" option to xargs prevents it from attempting to process an empty list. Parallelism is achieved using the "-P" parameter in conjunction with "-n": the former connotes the number of processes to use, and the latter how many elements of the list supplied by find should be processed by each invocation of xargs' procedure argument, here xz.
+The xz utility generally delivers better compression performance than does gzip or bzip2, and its optimal compression level is achieved using the -9 option. find and xargs pair well on *nix systems (think "search and destroy"), and it's well worth reading their manual pages to see what they're capable of. Here, the "-print0" and "--null" flags accommodate blanks in filenames, very often present in files obtained from Windows systems (otherwise, xargs might apply its procedure argument to fragments of filenames, which may or may not exist and are almost certainly not what was intended). The "-iname" option permits pattern matching against filenames in a case-independent manner. If find finds no such files, the "-r" option to xargs prevents it from attempting to process an empty list. Parallelism is achieved using the "-P" parameter in conjunction with "-n": the former connotes the number of processes to use, and the latter how many elements of the list supplied by find should be processed by each invocation of xargs' procedure argument, here xz.
 </p>
 
 <p>
@@ -1475,7 +1474,7 @@ The solution to the problem above demonstrated how to utilize xargs' max-procs p
 </p>
 
 <p>
-Here's a construct I once used to pre-process single-ended Illumina RNA-Seq reads for global transcriptome assembly and alignment to assembled transcripts. (I no longer use the <a href="http://hannonlab.cshl.edu/fastx_toolkit/">FASTX toolkit</a> in my workflows, though it was previously an important part of my QC and read trimming activities.) Naturally, given a pool of many available processes, more work can be done per unit time with a parallel approach than in performing the tasks in a piecemeal, linear fashion using fewer processes (provided memory consumption and disk I/O overhead are not excessive). This invocation shows in concrete terms how standard Linux command line features can be combined with what are essentially serial software components to achieve a "primitive" type of parallelism.
+Here's a construct I once used to pre-process single-ended Illumina RNA-Seq reads for global transcriptome assembly and alignment to assembled transcripts, invoking various QC and read trimming utilities from the <a href="http://hannonlab.cshl.edu/fastx_toolkit/">FASTX toolkit</a>. Naturally, given a pool of many available processes, more work can be done per unit time with a parallel approach than in performing the tasks in a piecemeal, linear fashion (provided memory consumption and disk I/O overhead are not excessive). This invocation shows in concrete terms how standard Linux command line features can be combined with what are essentially serial software components to achieve a primitive form of parallelism.
 </p>
 
 <pre>
