@@ -109,7 +109,7 @@ If not yet comfortable editing with both vi/vim and Emacs&mdash;the two principa
 "serious" text editors for *nix programmers&mdash;please work through some tutorials
 until you are.
 vi is ordinarily installed on most
-GNU/Linux distros by default and Emacs is just an 'apt install' away.
+GNU/Linux distros by default and Emacs is just an "apt install" away.
 Tutorials for both can be readily located on the internet,
 and of course Emacs prominently advertises its own built-in tutorial,
 launched with "Ctrl-h t".
@@ -417,7 +417,7 @@ The "Towers of Hanoi" puzzle is a classic pedagogical tool often used to introdu
 <p>
 I've prepared a <a href="solns/hanoi.pdf">solution</a> using raw IA32 assembly opcodes for Linux, which is just a step or two removed from coding on bare metal.
 For assembly, I ordinarily use AT&amp;T syntax, which is used by default with the GNU Project Debugger. If you prefer Intel syntax, no problem, but my suggestion is not to habitually switch between the two; pick a flavor and stick with it.
-Aside from debugging, occasionally adjusting gcc -S output, or tasks where we must RTFB(inary), assembly's seldom used in this shop.
+Aside from debugging, occasionally adjusting "gcc -S" output, or tasks where we must RTFB(inary), assembly's seldom used in this shop.
 (For learning assembly, I'm partial to Richard Blum's <a href="https://www.wiley.com/en-us/Professional+Assembly+Language-p-9780764579011"><i>Professional Assembly Language</i></a>, though it would be great to see it updated for 64-bit systems.)
 </p>
 
@@ -915,7 +915,7 @@ Sketch out a prototype solution to the N-Queens problem in Prolog. Then using C+
 </p>
 
 <p>
-N-Queens is a standard puzzle of the constraint satisfaction type. Biology is chock full of instances from this class. For example, consider idealized promoter binding sites. These occur on the same strand as a particular transcriptional unit. What is more, they occur upstream from it, within a preferred range of distances from a transcriptional start site, and they exhibit a short sequence motif of a specified length that ought to bear some degree of similarity to a known set of reference binding site motifs (bootstrapped experimentally using, for instance, SELEX-Seq). Those characteristics specify the constraints to be observed by any given solution (i.e., a transcription binding site). In principle, all true solutions would satisfy them, and anything that satisfied them would in turn be a true solution. Given the "shape"/ "gestalt" of the N-Queens solution, it's just a matter of swapping out functions to implement a simple transcription factor binding site prediction tool.
+N-Queens is a standard puzzle of the constraint satisfaction type. Biology is chock full of instances from this class. For example, consider idealized promoter binding sites. These occur on the same strand as a particular transcriptional unit. What is more, they occur upstream from it, within a preferred range of distances from a transcriptional start site, and they exhibit a short sequence motif of a specified length that ought to bear some degree of similarity to a known set of reference binding site motifs (bootstrapped experimentally using, for instance, SELEX-Seq). Those characteristics specify the constraints to be observed by any given solution (i.e., a transcription binding site). In principle, all true solutions would satisfy them, and anything that satisfied them would in turn be a true solution. Given the "gestalt" of the N-Queens solution, it's in principle just a matter of swapping out functions to implement a simple transcription factor binding site prediction tool.
 </p>
 
 <p>
@@ -1465,7 +1465,7 @@ Here, the sudo qualifier is used because it's generally ill-advised to perform w
 </p>
 
 <p>
-On a related note, please also become familiar with basic process concepts, including PID, PPID, zombies, orphans, daemons and so forth. Also, please become familiar with the suite of basic signals and signal handlers made available by the Linux kernel/ POSIX systems (i.e., see "$ man 7 signal"): kill -TSTP (or kill -STOP) and kill -CONT are lifesavers (the command name notwithstanding). Should there be an emergency and I need to stop your job, rest assured that I will suspend it by these means and courteously notify you of the situation immediately thereafter (rather than kill -9 it and clam up until you discover this fact and accost me about it...a faux pas that was repeatedly inflicted on me in a prior working environment, but I digress.)
+On a related note, please also become familiar with basic process concepts, including PID, PPID, zombies, orphans, daemons and so forth. Also, please become familiar with the suite of basic signals and signal handlers made available by the Linux kernel/ POSIX systems (i.e., see "man 7 signal"): "kill -TSTP <i>pid</i>" (or "kill -STOP <i>pid</i>") and "kill -CONT <i>pid</i>" are lifesavers (the command name notwithstanding). Should there be an emergency and I need to stop your job, rest assured that I will suspend it by these means and courteously notify you of the situation immediately thereafter (rather than "kill -9" it and stroll off whistling a Rodgers and Hammerstein melody).
 </p>
 </li>
 
