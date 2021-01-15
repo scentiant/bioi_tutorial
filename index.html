@@ -168,8 +168,10 @@ d) Yes, because the char type reserves at least as many bits as the int type.<br
 
 <p>
 <i>Charlie</i>. Compilers will reserve at least one byte for a char, and at least two bytes for a short. Anything that can be encoded using 8 bits can also be encoded using 16 or more bits. All additional species of integer-typed variables utilize at least as many bits as a short. (Consider testing this on your system using C's sizeof() operator.)
+</p>
 
-This is relevant even to basic text processing when using C, as the EOF marker cannot be stored in a char-typed variable (see Kernighan &amp; Ritchie's <a href="https://www.cprogramming.com/books/ritchie.html">book</a> for relevant discussions). Although dynamically-typed languages usually allow us to overlook such details, beware of realizing inadvertent type errors by relying too heavily on the conveniences they afford.
+<p>
+This is relevant even to basic text processing when using C, as the EOF marker cannot be stored in a char-typed variable (see Kernighan &amp; Ritchie's <a href="https://www.cprogramming.com/books/ritchie.html">book</a> for relevant discussions). Although dynamically-typed languages usually allow us to overlook such details, beware of realizing inadvertent type errors by relying too heavily on the conveniences they afford. (On a related note, please understand how dynamic vs. static typing conceptually differs from weak vs. strong typing.)
 </p>
 </li>
 
