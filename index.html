@@ -326,7 +326,7 @@ scheme@(guile-user)&gt;
 </pre>
  
 <p>
-Log-transformations are useful for preventing buffer under- and overflows vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for example. (Exponentiating the sum of logarithms is ordinarily done instead). The key takeaway here is to acknowledge the limitations of computing hardware, which do not yet enable the realization of truly "executable mathematics."
+Log-transformations are useful for preventing buffer under- and overflows vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for example. (Exponentiating the sum of logarithms is ordinarily done instead.) The key takeaway here is to acknowledge the limitations of computing hardware, which do not yet enable the realization of truly "executable mathematics."
 </p>
 </li>
  
@@ -621,7 +621,7 @@ Response = [goodbye, and, have, a, nice, day, '.'].
 </pre>
 
 <p>
-To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, and red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty is the basis for the famous "You are likely to be eaten by a <i>grue</i>" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>.
+To embellish a bit, the idea is you find lists (of strings, being either single words or multi-word segments) that match among the actions and reactions (the match/2 predicate), while also unifying with a template that maps one set to the other (template/2). eliza/2 provides the main user interface, using a green cut (the '!') for efficiency: we know only one set of values binding the variables is correct, so we instruct Prolog's unification engine not to proceed with further exploration of the solution space after the first solution is identified. Not all cuts are green: roughly speaking, green and blue cuts are okay, though red cuts are not (see Richard O'Keefe's <a href="https://mitpress.mit.edu/books/craft-prolog"><i>The Craft of Prolog</i></a> for details). Green and blue cuts are so-called "grue" cuts...which I'd wager with near certainty is the basis for the famous "You are likely to be eaten by a <i>grue</i>" line from <a href="https://en.wikipedia.org/wiki/Zork_I">Zork</a>.
 </p>
 
 <p>
@@ -925,7 +925,7 @@ N-Queens is a standard puzzle of the constraint satisfaction type. Biology is ch
 </p>
 
 <p>
-Although undeniably a puzzle, real-world biology isn't nearly as tidy as this, though, which is my hunch as to why so many computer scientists get frustrated with biology: programming is a very unforgiving task that insists you understand all the subtleties of your problem and how to match those with the features your available hardware, algorithms and implementation language afford. Attention to detail is critical. Biology's a chaotic maelstrom where we're just more or less hanging on for dear life. Comfort with uncertainty is an asset (which is where statistics and probability theory come in handy). It's tough to pair those yin &amp; yang/ Garfield &amp; Odie/ mine &amp; craft mindsets in a single personality. Don Knuth once <a href="http://www.literateprogramming.com/clb93.html">said</a> that "Biology is so digital, and incredibly complicated...[it] has 500 years of exciting problems to work on." Bioinformatics is the Ultimate. Video. Game. (Trust me, I'm not in this racket for the money...)
+Although undeniably a puzzle, real-world biology isn't nearly as tidy as this, though, which is my hunch as to why so many computer scientists get frustrated with it: programming is a very unforgiving task that insists you understand all the subtleties of your problem and how to match those with the features your available hardware, algorithms and implementation language afford. Attention to detail is critical. Biology's a chaotic maelstrom where we're just more or less hanging on for dear life. Comfort with uncertainty is an asset (which is where statistics and probability theory come in handy). It's tough to pair those yin &amp; yang/ Garfield &amp; Odie/ mine &amp; craft mindsets in a single personality. Don Knuth once <a href="http://www.literateprogramming.com/clb93.html">said</a> that "Biology is so digital, and incredibly complicated...[it] has 500 years of exciting problems to work on." Bioinformatics is the Ultimate. Video. Game. (Trust me, I'm not in this racket for the money...)
 </p>
  
 <p>
