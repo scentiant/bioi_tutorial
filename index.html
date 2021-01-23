@@ -330,7 +330,7 @@ scheme@(guile-user)&gt;
 </pre>
  
 <p>
-Log-transformations are useful for preventing buffer under- and overflows vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for example. (Exponentiating the sum of logarithms is ordinarily done instead.) The key takeaway here is to acknowledge the limitations of computing hardware, which do not yet enable the realization of truly "executable mathematics."
+Log-transformations are useful for preventing underflow (or overflow) errors vis-&#224;-vis the precision of a given variable type. This is especially of concern when chaining together (i.e., multiplying) a sequence of probabilities to calculate a joint probability, for example. (Exponentiating the sum of logarithms is ordinarily done instead.) The key takeaway here is to acknowledge the limitations of computing hardware, which do not yet enable the realization of truly "executable mathematics."
 </p>
 </li>
  
