@@ -1431,7 +1431,7 @@ Suppose a colleague approaches you and asks how to analyze the set of simple seq
 </p>
 
 <p>
-Purely functional languages such as Haskell are those that steer clear of side effects and state. In principle, they are readily parallelizable, scaling to high-performance computing environments with comparatively less effort than what would be necessary using something like an <a href="https://www.open-mpi.org/">MPI library</a> in a C program. Haskell is also a strongly- and statically-typed language. Together, these features allow us to reason about and prove the correctness of our programs more easily than we might with other tools. In my <a href="solns/SSR_data.Euclid.pdf">solution</a>, I've adhered to functional purity with the necessary exception of handling I/O. A sample session follows.
+In my Haskell <a href="solns/SSR_data.Euclid.pdf">solution</a>, I've adhered to functional purity with the necessary exception of handling I/O. A sample session follows.
 </p>
 
 <pre>
@@ -1442,6 +1442,44 @@ Linking SSR_data.Euclid ...
 $ ./SSR_data.Euclid | md5sum &amp;&amp; md5sum matrix.tab-delim.txt
 e5d3d6e648597f08ca14776fcd43fb77  -
 e5d3d6e648597f08ca14776fcd43fb77  matrix.tab-delim.txt
+</pre>
+
+<p>
+Purely functional languages such as Haskell are those that steer clear of side effects and state. In principle, they are readily parallelizable, scaling to high-performance computing environments with comparatively less effort than what would be necessary using something like the <a href="https://www.open-mpi.org/">MPI library</a> in a C or Fortran program. Haskell is also a strongly- and statically-typed language. Together, these features allow us to reason about and prove the correctness of our programs more easily than we might with other tools. 
+</p>
+
+<p>
+Haskell is not, however, without its criticisms, particularly over the matter of its lazy evaluation policy. Embracing laziness without first considering arguments proffered in Lawrence Paulson's masterpiece, <i>ML for the Working Programmer</i>, seems ill-advised. I'm not entirely sure which side of this schism I fall on, but it's worth noting that many of Haskell's benefits can also be enjoyed in such dialects of ML as Standard ML and OCaml. Note that in those tongues, we have the option&mdash;sans the obligation&mdash;of invoking a little call-by-need voodoo when it suits us. Here's an example I've prepared showing how to build an infinite list of boring old Fibonacci numbers in SML, allowing us to duck the double recursion overhead implicit in the typical mathematical defintion (translation to OCaml is straightforward):
+</p>
+
+<pre>
+Standard ML of New Jersey v110.79 [built: Tue Aug  8 23:21:20 2017]
+- datatype 'a stream = Nil | Cons of 'a * (unit -&gt; 'a stream);
+datatype 'a stream = Cons of 'a * (unit -&gt; 'a stream) | Nil
+- exception EmptyStream;
+exception EmptyStream
+- fun stream_take Nil _ = raise EmptyStream
+=   | stream_take _ 0 = []
+=   | stream_take (Cons(car, cdr_fct)) n = car :: stream_take (cdr_fct ()) (n-1);
+val stream_take = fn : 'a stream -&gt; int -&gt; 'a list
+- fun nth Nil _ = raise EmptyStream (* for that Lispy feel *)
+=   | nth (Cons(car, _)) 1 = car
+=   | nth (Cons(_, cdr_fct)) n = nth (cdr_fct ()) (n-1);
+val nth = fn : 'a stream -&gt; int -&gt; 'a
+- infix !! (* emulates Haskell'ish syntax *);
+infix !!
+- fun (stream !! index) = nth stream index;
+val !! = fn : 'a stream * int -&gt; 'a
+- fun fibs (i, j) = Cons(i, fn () =&gt; fibs (j, i+j));
+val fibs = fn : int * int -&gt; int stream
+- val fibonacci = fibs (1, 1);
+val fibonacci = Cons (1,fn) : int stream
+- stream_take fibonacci 11;
+val it = [1,1,2,3,5,8,13,21,34,55,89] : int list
+- fibonacci !! 10;
+val it = 55 : int
+- nth fibonacci 42;
+val it = 267914296 : int
 </pre>
 </li>
  
