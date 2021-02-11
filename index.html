@@ -1472,13 +1472,13 @@ infix !!
 val !! = fn : 'a stream * int -&gt; 'a
 - fun fibs (i, j) = Cons(i, fn () =&gt; fibs (j, i+j));
 val fibs = fn : int * int -&gt; int stream
-- val fibonacci = fibs (1, 1);
-val fibonacci = Cons (1,fn) : int stream
+- val fibonacci = fibs (0, 1);
+val fibonacci = Cons (0,fn) : int stream
 - stream_take fibonacci 11;
-val it = [1,1,2,3,5,8,13,21,34,55,89] : int list
-- fibonacci !! 10;
-val it = 55 : int
-- nth fibonacci 42;
+val it = [0,1,1,2,3,5,8,13,21,34,55] : int list
+- fibonacci !! 7;
+val it = 8 : int
+- nth fibonacci 43;
 val it = 267914296 : int
 </pre>
 </li>
