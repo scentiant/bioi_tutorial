@@ -258,7 +258,7 @@ scheme@(guile-user)&gt;
 (define is-it-zero?
   (lambda (arg tol)
     (if (within-tolerance? arg 0.0 tol)
-        "Yes, it is."
+        "Aye, it is."
         "Nope, it ain't.")))
 
 scheme@(guile-user)&gt;
@@ -274,7 +274,7 @@ $3 = "Nope, it ain't."
 scheme@(guile-user)&gt;
 
 (is-it-zero? 1E-10 1E-9)
-$4 = "Yes, it is."
+$4 = "Aye, it is."
 
 scheme@(guile-user)&gt;
 
@@ -372,12 +372,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 </ul>
 
 <p>
-There's no right or wrong answer as to preference.
-Being somewhat akin to earmuffs, Perl has fallen out of favor in recent years, being steadily displaced by Python (and R). Still, I prefer Perl. Its primary baked-in strength lies in text processing (which much of bioinformatics consists of), and that coupled with its being easy to learn, versatile and not super-terrible at numeric tasks (e.g., <a href="http://pdl.perl.org/">perldl/PDL</a>) may explain how it once reigned as the lingua franca of bioinformatics.
+There's no right or wrong answer as to preference. Being somewhat akin to earmuffs, Perl has fallen out of favor in recent years, being steadily displaced by Python (and R). Still, I prefer Perl (the late Erik Naggum's <a href="http://www.schnada.de/grapt/eriknaggum-perlrant.html">diatribe</a> notwithstanding). Its primary baked-in strength lies in text processing (which much of bioinformatics consists of), and that coupled with its being easy to learn, versatile and not super-terrible at numeric tasks (e.g., <a href="http://pdl.perl.org/">perldl/PDL</a>) may explain how it once reigned as the <i>lingua franca</i> of bioinformatics.
 </p>
 
 <p>
-A problem with Perl is its simplicity is deceptive, and it's all too easy for beginners to fall prey to any number of gotchas. Some claim it's a "write-only" language, but I disagree. Some claim it encourages unstructured programming practices, and I agree up to a point. Some claim certain self-aggrandizing molecular biologists often learn just enough of it to be dangerous and then zealously pollute the software corpus with bug-ridden vanity code because they couldn't be bothered to thoroughly test their programs with something like <a href="https://metacpan.org/pod/Devel::ptkdb">ptkdb</a>. (No comment.)
+A problem with Perl is its simplicity is deceptive, and it's all too easy for beginners to fall prey to any number of gotchas. Some claim it's a "write-only" language, but I disagree. Some claim it encourages unstructured programming practices, and I agree up to a point. Some claim certain self-aggrandizing molecular biologists often learn just enough of it to be dangerous and then zealously pollute the software corpus with bug-ridden vanity code because they just couldn't be bothered to thoroughly test their programs with something like <a href="https://metacpan.org/pod/Devel::ptkdb">ptkdb</a>. (No comment.)
 </p>
 
 <p>
@@ -1285,7 +1284,7 @@ Suppose a colleague approaches you and asks if you could please scan for quorum 
 </p>
 
 <p>
-See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the lingua franca of "data science" (whatever that actually <a href="https://quoteinvestigator.com/2015/06/26/not-science/">means</a>). R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." R is nearly indispensable in bioinformatics, so please do acquire a working knowledge of it if you haven't already.
+See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the <i>lingua franca</i> of "data science" (whatever that actually <a href="https://quoteinvestigator.com/2015/06/26/not-science/">means</a>). R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." R is nearly indispensable in bioinformatics, so please do acquire a working knowledge of it if you haven't already.
 </p>
 </li>
 
