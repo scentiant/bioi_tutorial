@@ -1,5 +1,5 @@
 {-
-   Michael E. Sparks, 2 Jan 2021
+   Michael E. Sparks, 4 May 2021
 
    SSR_data_Euclid.hs - Haskell statements to prepare a matrix of
                         Euclidean distances from all pairwise
@@ -10,7 +10,7 @@
 import Data.List
 import System.IO
 
--- for simplicity, let's just hard-code in the input data
+-- for simplicity, let's just hard code the input data
 a1=[204,151,109,117,134]
 a2=[203,154,111,117,135]
 a3=[204,148,109,117,135]
@@ -30,36 +30,35 @@ c5=[180,188,158,119,135]
 ssrDataNames=[
   "a1","a2","a3","a4","a5",
   "b1","b2","b3","b4","b5",
-  "c1","c2","c3","c4","c5"]
+  "c1","c2","c3","c4","c5"
+  ]
 
 ssrData=[
   a1,a2,a3,a4,a5,
   b1,b2,b3,b4,b5,
-  c1,c2,c3,c4,c5]
+  c1,c2,c3,c4,c5
+  ]
 
-cellLabels = [ (i, j) | i <- ssrDataNames, j <- ssrDataNames ]
+cellLabels = [(i,j) | i <- ssrDataNames, j <- ssrDataNames]
 
-cellData = map (\(x, y) -> sqrt $ sum [ (a - b)^2 | (a, b) <- zip x y ] )
-             [ (i,j) | i <- ssrData, j <- ssrData ]
+cellData = map (\ (x,y) -> sqrt $ sum [(a-b)^2 | (a,b) <- zip x y])
+               [(i,j) | i <- ssrData, j <- ssrData]
 
 matrix = zip cellLabels cellData
 
--- putStr* variants would be for printing to terminal screen/ stdout,
--- while *File variants are for filestream I/O
-printRow i = putStrLn (n ++ "\t" ++ (intercalate "\t"
-  (map show (map (\y -> snd y) [x | x <- matrix , fst (fst x) == n]))))
-   where n = (ssrDataNames !! i)
-
-printRow' i = (n ++ "\t" ++ (intercalate "\t" (map show (map (\y -> snd y)
-   [x | x <- matrix , fst (fst x) == n]))) ++ "\n")
-   where n = (ssrDataNames !! i)
+stringifyRow i = n ++ "\t" ++ dists ++ "\n"
+  where n = ssrDataNames !! i
+        dists = intercalate "\t" $
+          map show $ map snd [x | x <- matrix, (fst . fst) x==n]
 
 main = do
-  putStrLn ("\t" ++ (intercalate "\t" ssrDataNames))
-  mapM_ printRow [0..length ssrDataNames - 1]
+  -- print to stdout (i.e., terminal screen)
+  putStrLn $ "\t" ++ (intercalate "\t" ssrDataNames)
+  mapM_ (putStr . stringifyRow) [0..length ssrDataNames - 1]
 
-  -- for simplicity, we'll just hard-code in the output filename, too
-  writeFile "matrix.tab-delim.txt"
-    ("\t" ++ (intercalate "\t" ssrDataNames) ++ "\n")
-  mapM_ (\i -> appendFile "matrix.tab-delim.txt" (printRow' i))
-    [0..length ssrDataNames - 1]
+  -- now for the filestream I/O; for simplicity,
+  -- we'll just hard code the output filename, too
+  let outfile="matrix.tab-delim.txt"
+  writeFile outfile $ "\t" ++ (intercalate "\t" ssrDataNames) ++ "\n"
+  mapM_ (\ i -> appendFile outfile $ stringifyRow i)
+        [0..length ssrDataNames - 1]
