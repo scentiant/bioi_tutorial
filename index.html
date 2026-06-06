@@ -35,9 +35,8 @@ Importantly, this is a personal website&mdash;the opinions expressed herein are 
 </p>
 
 <p>
-I have generally been successful in persuading my supervisees to take
-their craft seriously and strive to improve their skills during the time
-they spent working with me:
+My supervisees have generally taken their craft seriously and strove to improve
+their skills during the time spent working with me:
 alumni outcomes to date include being hired directly from my group
 into a bioinformatics staff position at an Ivy institution,
 matriculating into a competitive physician training program,
@@ -391,7 +390,7 @@ A Perl <a href="http://brendelgroup.org/mespar1/gthxml/GSQ2XML.pl">script</a> I 
 
 <li>
 <p>
-While sitting in finance class one evening, noodling with your trusty HP-12C calculator during a water break, you suddenly realize: "This reverse Polish notation is the coolest thing I've seen since Michael Sparks got away with improvising a couple <a href="https://youtu.be/ZqFUxbsJD2o">bass solos</a> for his history class term project in lieu of writing up a report!" (In principle, I can <a href="https://youtu.be/p0vzlvHQd_4">still do this</a>, though I'm more <a href="https://youtu.be/7xhWkJVbyJc">jazz snob</a> than metalhead these days. I <a href="https://tinyurl.com/52p833ub">sing</a> and play <a href="https://youtu.be/cRL0Am7_lyk">other</a> <a href="https://youtu.be/efVYrb9lNRg?t=89">instruments</a>, <a href="https://youtu.be/X6jzITVIYpw">too</a>. You?) RPN is plainly cool, so we should definitely implement an interpreter for it in Lisp&mdash;specifically, one that can handle the four ordinary arithmetic operators. Then, using Perl, let's create a testing framework allowing us to check the correctness of our implementation&mdash;given any arbitrary, well-formed input string&mdash;against a reference standard based on <a href="https://www.gnu.org/software/gforth/">Forth</a>, a language used widely in the embedded applications world.
+While sitting in finance class one evening, noodling with your trusty HP-12C calculator during a water break, you suddenly realize: "This reverse Polish notation is the coolest thing I've seen since Michael Sparks got away with improvising a couple <a href="https://youtu.be/ZqFUxbsJD2o">bass solos</a> for his history class term project in lieu of writing up a report!" (In principle, I can <a href="https://youtu.be/p0vzlvHQd_4">still do this</a>, though I'm more <a href="https://youtu.be/7xhWkJVbyJc">jazz snob</a> than metalhead these days. I enjoy <a href="https://tinyurl.com/52p833ub">singing</a> and play <a href="https://youtu.be/cRL0Am7_lyk">other</a> <a href="https://youtu.be/efVYrb9lNRg?t=89">instruments</a>, <a href="https://youtu.be/X6jzITVIYpw">too</a>. You?) RPN is plainly cool, so we should definitely implement an interpreter for it in Lisp&mdash;specifically, one that can handle the four ordinary arithmetic operators. Then, using Perl, let's create a testing framework allowing us to check the correctness of our implementation&mdash;given any arbitrary, well-formed input string&mdash;against a reference standard based on <a href="https://www.gnu.org/software/gforth/">Forth</a>, a language used widely in the embedded applications world.
 </p>
 
 <p>
@@ -421,7 +420,7 @@ The key takeaway from my implementation is this: notice what's happening to the 
 
 <p>
 For contrast, consider the following Prolog implementation (adapted from John Fisher's excellent, online
-tutorial, available as of early 2023 either
+tutorial, available as of 2026 either
 <a href="http://www.augustobaffa.pro.br/wiki/Prolog_Tutorial/en">here</a> or
 <a href="https://saksagan.ceng.metu.edu.tr/courses/ceng242/documents/prolog/jrfisher/contents.html">here</a>).
 <!-- <a href="https://www.cpp.edu/~jrfisher/www/prolog_tutorial/2_3.html">tutorial</a>). -->
@@ -559,7 +558,7 @@ Launch Emacs' built-in ELIZA ("Meta-x doctor") and ponder how basic pattern matc
 </p>
 
 <p>
-Woodshedding on ELIZA is a rite of passage for AI enthusiasts, and it exemplifies how pattern matching can be used to implement something akin to a switch statement from C. Declarative programming can be achieved with any of the logic, goal-based languages (in contrast to procedural, imperative variants such as Java, C/C++, Fortran, Pascal, BASIC, etc.), among which Prolog is especially popular. Indeed, Prolog finds use in such modern applications as IBM's Watson (see <a href="https://www.cs.nmsu.edu/ALP/2011/03/natural-language-processing-with-prolog-in-the-ibm-watson-system/">here</a>, for example). Some background in predicate calculus/ propositional logic is helpful, but arguably not necessary to prepare useful Prolog programs. In the declarative paradigm, you tell the machine what you want rather than give it explicit directions for how to do something&mdash;to egregiously oversimplify reality, the machine automagically figures it out. Thus, this could be an attractive place to begin learning about programming for those without prior experience/ pre-conceived notions of what a program ought to look like: focus first on the logic and the correct solution to a problem, and later contemplate the minutiae of optimization.
+Woodshedding on ELIZA is a rite of passage for AI enthusiasts, and it exemplifies how pattern matching can be used to implement something akin to a switch statement from C. Declarative programming can be achieved with any of the logic, goal-based languages (in contrast to procedural, imperative variants such as Java, C/C++, Fortran, Pascal, BASIC, etc.), among which Prolog is especially popular. Indeed, Prolog finds use in such modern applications as IBM's Watson (see <a href="https://www.cs.miami.edu/home/odelia/teaching/csc419_spring19/syllabus/IBM_Watson_Prolog.pdf">here</a>, for example). Some background in predicate calculus/ propositional logic is helpful, but arguably not necessary to prepare useful Prolog programs. In the declarative paradigm, you tell the machine what you want rather than give it explicit directions for how to do something&mdash;to egregiously oversimplify reality, the machine automagically figures it out. Thus, this could be an attractive place to begin learning about programming for those without prior experience/ pre-conceived notions of what a program ought to look like: focus first on the logic and the correct solution to a problem, and later contemplate the minutiae of optimization.
 </p>
 
 <p>
@@ -620,7 +619,7 @@ A few additional remarks concerning the potential for using Prolog as a first la
 </p>
 
 <p>
-A second strength is that Prolog's arguably optimized for non-numeric, symbolic computing. As folks who were naturally inclined to study biology, let's be honest: this is the way in which we tend to internalize our world and reason about it. Admittedly, I don't ordinarily have an internal dialogue of formal logic rolling in my head, but I also certainly don't perceive the world using the sort of linear algebra-based stochastic models underpinning the current darling of AI, the connectionist-based "deep learning" subfield (see <a href="https://www.deeplearningbook.org/">here</a>). I'm a fan of DL/ML&mdash;and in fact I completed a <a href="https://doi.org/10.31274/rtd-180813-16829">doctoral dissertation</a> much more quantitative in nature than qualitative&mdash;but I'm not keen to outright disregard logic programming and the utility of <a href="https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence">GOFAI</a>. (A <a href="https://lib.dr.iastate.edu/cs_techreports/78/">technical report</a> by Vasant Honavar, whose excellent AI and ML courses I was fortunate enough to take as a graduate student, explores this symbolic-numeric duality in detail.)
+A second strength is that Prolog's arguably optimized for non-numeric, symbolic computing. As folks who were naturally inclined to study biology, let's be honest: this is the way in which we tend to internalize our world and reason about it. Admittedly, I don't ordinarily have an internal dialogue of formal logic rolling in my head, but I also certainly don't perceive the world using the sort of linear algebra-based stochastic models underpinning the current darling of AI, the connectionist-based "deep learning" subfield (see <a href="https://www.deeplearningbook.org/">here</a>). I'm a fan of DL/ML&mdash;and in fact I completed a <a href="https://doi.org/10.31274/rtd-180813-16829">doctoral dissertation</a> much more quantitative in nature than qualitative&mdash;but I'm not keen to outright disregard logic programming and the utility of <a href="https://en.wikipedia.org/wiki/Symbolic_artificial_intelligence">GOFAI</a>. (A <a href="https://lib.dr.iastate.edu/cs_techreports/78/">technical report</a> by Vasant Honavar, whose excellent AI and ML courses I was fortunate enough to take as a graduate student, explores this supposed symbolic-numeric duality in detail.)
 </p>
 
 <p>
@@ -628,7 +627,7 @@ Prolog's not without warts, though, among which is an atrocious native I/O syste
 </p>
 
 <p>
-I'm not familiar with many Prolog books, but Ivan Bratko's <a href="https://www.pearson.ch/HigherEducation/Addison-Wesley/EAN/9780321417466/Prolog-Programming-for-Artificial-Intelligence"><i>Prolog Programming for Artificial Intelligence</i></a>&mdash;given a glowing review by none other than the late, great Patrick Winston&mdash;undeniably inspired a few exercises I present below, and Sterling and Shapiro's <a href="https://mitpress.mit.edu/books/art-prolog-second-edition"><i>The Art of Prolog</i></a> was also a joy to read. Peter Norvig's <a href="https://github.com/norvig/paip-lisp"><i>Paradigms of Artificial Intelligence Programming</i></a> covers Prolog-inspired logic programming in Common Lisp and was my first exposure to the topic. Though not Prolog, I'd be remiss to omit mention of Sec. 4.4 of Abelson and Sussman's <a href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html"><i>Structure and Interpretation of Computer Programs</i></a>. As noted in problem 8 above, John Fisher's
+I'm not familiar with many Prolog books, but Ivan Bratko's <a href="https://www.amazon.com/Programming-Artificial-Intelligence-International-Computer/dp/0321417461"><i>Prolog Programming for Artificial Intelligence</i></a>&mdash;given a glowing review by none other than the late, great Patrick Winston&mdash;undeniably inspired a few exercises I present below, and Sterling and Shapiro's <a href="https://mitpress.mit.edu/9780262691635/the-art-of-prolog"><i>The Art of Prolog</i></a> was also a joy to read. Peter Norvig's <a href="https://github.com/norvig/paip-lisp"><i>Paradigms of Artificial Intelligence Programming</i></a> covers Prolog-inspired logic programming in Common Lisp and was my first exposure to the topic. Though not Prolog, I'd be remiss to omit mention of Sec. 4.4 of Abelson and Sussman's <a href="https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html"><i>Structure and Interpretation of Computer Programs</i></a>. As noted in problem 8 above, John Fisher's
 tutorial is very well done and perusing <a href="https://www.swi-prolog.org/">SWI Prolog</a>'s online
 documentation and tutorials is also recommended.
 </p>
@@ -853,7 +852,7 @@ This means-ends analysis using goal regression can then be used within the depth
 </p>
 
 <p>
-I've only used two types of objects&mdash;blocks and places&mdash;although it's possible to also consider pyramids, spheres, boxes, etc. Blocks World is the environment in which Terry Winograd's famous SHRDLU agent, a gem of the non-numerical, symbolic AI/ GOFAI corpus, operated. (See Dr. Winograd's SHRDLU page <a href="https://hci.stanford.edu/~winograd/shrdlu/">here</a>. Interestingly, Paul Graham mentions he <a href="http://www.paulgraham.com/college.html">cut his programming teeth</a> in part by rolling his own SHRDLU.)
+I've only used two types of objects&mdash;blocks and places&mdash;although it's possible to also consider pyramids, spheres, boxes, etc. Blocks World is the environment in which Terry Winograd's famous SHRDLU agent, a gem of the non-numerical, symbolic AI/ GOFAI corpus, operated. (See an exhibit on SHRDLU page <a href="https://mitmuseum.mit.edu/collections/object/2007.020.027">here</a>. Interestingly, Paul Graham mentions he <a href="http://www.paulgraham.com/college.html">cut his programming teeth</a> in part by rolling his own SHRDLU.)
 </p>
 </li>
 
@@ -1012,7 +1011,7 @@ Though not exactly news as of 2021, C++11 is a considerable departure from the e
 </p>
 
 <p>
-I've heard good things about Go and Rust, but haven't yet had a chance to try implementing anything of substance in either yet. Java and C# are also tossed about as contenders, but they don't strike me as appropriate for scientific computing. Joel Spolsky published an interesting <a href="https://www.joelonsoftware.com/2005/12/29/the-perils-of-javaschools-2/">critique</a> of Java some time ago, suggesting that discerning who among a group of competent Java programmers will or will not be bringing potato salad to the Mensa picnic is much harder than when gauging capabilities in tongues such as C, Lisp or ML. Ergo, unless you have an economic reason or are otherwise being coerced into working with languages such as Java, PHP, JavaScript and Scratch, I would think you're likely to get a better stretch in the gray matter by knuckling down with something like OCaml or Haskell instead. (j/k. Actually, <a href="https://scratch.mit.edu/users/insecterator/">I like Scratch</a>!)
+I've heard good things about Go and Rust, but haven't yet had a chance to try implementing anything of substance in either yet. Java and C# are also tossed about as contenders, but they don't strike me as appropriate for scientific computing. Joel Spolsky published an interesting <a href="https://www.joelonsoftware.com/2005/12/29/the-perils-of-javaschools-2/">critique</a> of Java some time ago, suggesting that discerning who among a group of competent Java programmers will or will not be bringing potato salad to the Mensa picnic is much harder than when gauging capabilities in tongues such as C, Lisp or ML. Ergo, unless you have an economic reason or are otherwise being coerced into working with languages such as Java, PHP, JavaScript and Scratch, I would think you're likely to get a better stretch in the gray matter by knuckling down with something like OCaml or Haskell instead. (j/k. Actually, you can see here that <a href="https://scratch.mit.edu/users/insecterator/">I like Scratch</a>!)
 </p>
 </li>
 
@@ -1118,7 +1117,7 @@ for "generating" protein sequences.
 The first supposes all codons equally likely (i.e., it assumes
 a uniform distribution on codon probabilities), whereas the
 second assumes the distribution presented in
-<a href="http://www.sci.sdsu.edu/~smaloy/MicrobialGenetics/topics/in-vitro-genetics/codon-usage.gif">this image</a>
+<a href="solns/codon-usage.gif">this image</a>
 (note that the original frequency associated with the UAG codon (0.0003) was modified to 0.004,
 so that probabilities sum to 1.0 and thus constitute a valid PMF).
 </p>
@@ -1196,8 +1195,7 @@ Such a process cycles until the posterior and prior probability
 distributions become effectively stabilized in the face of
 novel data.
 (Now and again you may even luck into a
-<a href="https://ocw.mit.edu/courses/mathematics/18-05-introduction-to-probability-and-statistics-spring-2014/readings/MIT18_05S14_Reading15a.pdf">conjugate prior</a> for this
-sort of thing.)
+<a href="https://bayesrulesbook.com/chapter-5">conjugate prior</a> for this sort of thing.)
 </p>
 
 <p>
@@ -1271,7 +1269,7 @@ Suppose a colleague approaches you and asks if you could please scan for quorum 
 </p>
 
 <p>
-See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the <i>lingua franca</i> of "data science" (whatever that actually <a href="https://quoteinvestigator.com/2015/06/26/not-science/">means</a>). R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." Concerning S, please see pp. 46-59, 100 of this <a href="https://archive.org/details/Unix_Review_1985_Nov.pdf/page/n47/mode/2up">1985 issue</a> of <i>Unix Review</i> for a brief overview of its syntax and a discussion on how S was motivated by the desire for an interactive data analysis and graphics system. Then, get yourself <i>Back to the Future</i> (get it?) and please acquire a working knowledge of R if you haven't already&mdash;it's nearly indispensable for bioinformatics work these days.
+See <a href="solns/quorumMotifs.pdf">here</a> for my solution, implemented in R (getting by with a little help from its friend, C). In many of these exercises, I've encouraged you to practice using the Scheme dialect of Lisp (as opposed to the substantially more powerful variant, Common Lisp, or trendier Lisps such as Clojure for the JVM). Why learn Scheme, you ask? Several reasons, among which is its nexus with R, the <i>lingua franca</i> of data science. R implements the syntax of AT&amp;T's S language over the semantics of Scheme (see <a href="https://www.stat.auckland.ac.nz/~ihaka/downloads/R-paper.pdf">here</a> and <a href="https://bookdown.org/rdpeng/rprogdatascience/history-and-overview-of-r.html">here</a>)&mdash;that is, you can think of R as a "Scheme <a href="https://en.wikipedia.org/wiki/Skin_(computing)">skinned</a> with S." Concerning S, please see pp. 46-59, 100 of this <a href="https://archive.org/details/Unix_Review_1985_Nov.pdf/page/n47/mode/2up">1985 issue</a> of <i>Unix Review</i> for a brief overview of its syntax and a discussion on how S was motivated by the desire for an interactive data analysis and graphics system. Then, get yourself <i>Back to the Future</i> (get it?) and please acquire a working knowledge of R if you haven't already&mdash;it's nearly indispensable for bioinformatics work these days.
 </p>
 </li>
 
